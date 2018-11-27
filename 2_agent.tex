@@ -1,0 +1,29 @@
+\chapter{Problem sterowania robotem społecznym}
+% TODO:
+% Definicja agenta mobilnego. Obiekt sa model. Warstwowość agentów.
+% Model BDI, intuicyjność rozwiązania, 
+% Robot NAO, możliwości sterowania, choreograph, naoqi, ROS
+% Brak wysokopoziomowej warstwy sterowania
+
+\section{Agent mobilny}
+Agent stanowi formę pośrednią między programem komputerowym a robotem. Najłatwiej jest opisać agenta jako obiekt (w rozumieniu programowania obiektowego). Obiekty składają się pól i posiadają metody. Dostęp do zawartości pól i do wywoływania metod może być ograniczany (prywatny) lub ogólnie dostępny (publiczny), ale decyzja o podjęciu przez obiekt jakiegoś działania delegowana jest do wyższych warstw programu, np. nadrzędnej funkcji, lub programisty wywołującego metodę z poziomu linii komend. 
+
+Różnicą między obiektami a agentami jest autonomiczność tych drugich. Agent na podstawie swojego stanu lub wiedzy o świecie może sam zdecydować o podjęciu działania. Ze względu na Wyróżnia się agentów czysto reaktywnych i agentów z parametrem wewnętrznym, którzy dodatkowo przechowują informację o kolejnych stanach świata i są w stanie modelować konsekwencje swoich działań. Z formalnego punktu widzenia agent czysto reaktywny musi posiadać przynajmniej dwie metody – see() pozwalającą na pobranie wiedzy o świecie i action() pozwalającą na oddziaływanie na świat. Agent z parametrem wewnętrzym posiada dodatkową metodę next() tworzącą model świata na podstawie infomacji zwróconych przez see(). Kolejne modele świata są zapamiętywane w bazie danych.  
+
+Działanie agentów z parametrem wewnętrznym może być traktowane jako podróż po grafie skierowanym, którego wierzchołkami są różne modele świata, a krawędziami dostępne akcje. Planowanie działań sprowadza się do wyznaczenia ścieżki między początkowym a końcowym stanem świata.
+
+Robot stanowi interfejs pomiędzy agentem a światem rzeczywistym.  (agent upostaciowiony robot)
+
+\section{Model BDI}
+Model belief-desire–intention (model przekonań-pragnień-intencji) to metodyka projektowania agentów. 
+
+Naturalnym dla człowieka jest zaspokajanie swoich potrzeb poprzez określenie celów do realizacji, a następnie 
+
+Dekompozycja porządanego stanu na działania, które do niego prowadzą.
+
+% Planner, 
+
+% model symuluje zachowanie człowieka
+
+\section{Robot społeczny NAO}
+% Nao posiada dobrze rozwinięte niższe warstwy sterowania, nie ma jednak narzędzi do 
