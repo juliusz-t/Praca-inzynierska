@@ -14,11 +14,25 @@
 
 % Agent jest autonomicznym programem, przetwarzającym percepcję na działanie. Uprzedmiotowiony agent jest robotem.
 
+\subsection{Agent jako obiekt}
+
 Agent stanowi formę pośrednią między programem komputerowym a robotem. Najłatwiej jest opisać agenta jako obiekt (w rozumieniu programowania obiektowego). Obiekty składają się pól i posiadają metody. Dostęp do zawartości pól i do wywoływania metod może być ograniczany (prywatny) lub ogólnie dostępny (publiczny), ale decyzja o podjęciu przez obiekt jakiegoś działania delegowana jest do wyższych warstw programu, np. nadrzędnej funkcji, lub programisty wywołującego metodę z poziomu linii komend. 
 
-Cechą wyróżniającą agentów od pozostałych obiektów jest autonomiczność działania. Agent na podstawie swojego stanu lub wiedzy o świecie może sam zdecydować o podjęciu działania. Ze względu na źródło sterowania akcją wyróżnia się \textbf{agentów czysto reaktywnych} i  \textbf{agentów z parametrem wewnętrznym}. 
+Cechą wyróżniającą agentów od pozostałych obiektów jest autonomiczność działania. Agent na podstawie swojego stanu lub wiedzy o świecie może sam zdecydować o podjęciu działania. 
+
+
+\subsection{Klasyfikacja CERT}
+% prof. Cezary Zieliński
+
+\subsection{Klasyfikacja }
+% dr inż. Michał Gnatowski
+Ze względu na źródło sterowania akcją wyróżnia się \textbf{agentów czysto reaktywnych} i  \textbf{agentów z parametrem wewnętrznym}. 
+
+\subsubsection{Agent czysto reaktywny}
 
 Z formalnego punktu widzenia agent czysto reaktywny musi posiadać przynajmniej dwie metody – \textit{see()} pozwalającą na pobranie wiedzy o świecie oraz \textit{action()} pozwalającą na oddziaływanie na świat. Źródłem akcji jest aktualna wiedza o świecie.
+
+\subsubsection{Agent z parametrem wewnętrzym}
 
 Agent z parametrem wewnętrzym dodatkowo tworzy modele świata, które może przechować w bazie danych. Posiada metodę \textit{next()} która generuje model na podstawie dwóch źródeł: informacji z otoczenia lub przewidywanych konsekwencji dostępnych akcji. Źródłem akcji jest wewnętrzny model świata. 
 
@@ -27,13 +41,36 @@ Działanie agentów z parametrem wewnętrznym może być traktowane jako podró�
 \section{Model BDI}
 Model belief-desire–intention (model przekonań-pragnień-intencji) to metodyka projektowania agentów. 
 
-Naturalnym dla człowieka jest zaspokajanie swoich potrzeb poprzez określenie celów do realizacji, a następnie 
+\subsubsection{Przekonania}
+Opisują aktualny stan świata postrzegany przez agenta. Używa się słowa "przekonania", a nie "wiedza" dla pokreślenia, że agent może wierzyć w zdania, które niekoniecznie są prawdziwe. Przekoniania zebrane są w zbiór zdań. Do tego zbioru mogą należeć również reguły wnioskowania. Dzięki nim na podstawie istniejących przekonań można wyprowadzić inne. Z tego powodu model BDI musi zabierać system dowodzenia/automatycznego wnioskowania.
 
-Dekompozycja porządanego stanu na działania, które do niego prowadzą.
+\subsubsection{Pragnienia}
+Opisują stan świata porządany przez agenta. 
+Pragnienia urzeczywistniają się poprzez stawianie sobie celów. Pragnienie może być zdefiniowane ogólnie, natomiast cel musi określać warunki sukcesu. Pragnienia mogą być sprzeczne, ale agent nie może jednocześnie realizować dwóch sprzecznych celów.
+
+\subsubsection{Intencje}
+Opisują hierarhię pragnień agenta. 
+
+
+
+% Naturalnym dla człowieka jest zaspokajanie swoich potrzeb poprzez określenie celów do realizacji, a następnie 
+
+% Dekompozycja porządanego stanu na działania, które do niego prowadzą.
 
 % Planner, 
 % model symuluje zachowanie człowieka
 \section{Robot społeczny}
+Cechy robota społecznego:
+\begin{itemize}
+    \item express and/or perceive emotions;
+    \item communicate with high-level dialogue;
+    \item learn/recognize models of other agents;
+    \item establish/maintain social relationships;
+    \item use natural cues (gaze, gestures, etc.);
+    \item exhibit distinctive personality and character;
+    \item may learn/develop social competencies.
+\end{itemize}
+
 % Robot stanowi interfejs pomiędzy agentem a światem rzeczywistym.  (agent upostaciowiony robot)
 
 \section{NAO jako robot społeczny}
