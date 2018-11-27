@@ -6,13 +6,23 @@
 % Brak wysokopoziomowej warstwy sterowania
 
 \section{Agent mobilny}
+% Słownik języka polskiego nie definiuje słowa agent w takim rozumieniu, w jakim będzie ono używane w poniższej pracy, ponieważ jest to zapożyczenie z języków obcych. Jedna z definicji oksfordzkiego słownika języka angielskiego mówi: "A person or thing that takes an active role or produces a specified effect", co można przetłumaczyć jako "Osoba lub rzecz, która bierze udział lub przyczynia się do realizacji określonego efektu".
+
+% "An independently operating Internet program, typically one that performs background tasks such as information retrieval or processing on behalf of a user or other program" 
+
+% "Autonomicznie działający program internetowy, zazwyczaj realizujący w tle takie działania jak gromadzenie lub przetwarzanie danych w imieniu użytkownika lub innego programu"
+
+% Agent jest autonomicznym programem, przetwarzającym percepcję na działanie. Uprzedmiotowiony agent jest robotem.
+
 Agent stanowi formę pośrednią między programem komputerowym a robotem. Najłatwiej jest opisać agenta jako obiekt (w rozumieniu programowania obiektowego). Obiekty składają się pól i posiadają metody. Dostęp do zawartości pól i do wywoływania metod może być ograniczany (prywatny) lub ogólnie dostępny (publiczny), ale decyzja o podjęciu przez obiekt jakiegoś działania delegowana jest do wyższych warstw programu, np. nadrzędnej funkcji, lub programisty wywołującego metodę z poziomu linii komend. 
 
-Różnicą między obiektami a agentami jest autonomiczność tych drugich. Agent na podstawie swojego stanu lub wiedzy o świecie może sam zdecydować o podjęciu działania. Ze względu na Wyróżnia się agentów czysto reaktywnych i agentów z parametrem wewnętrznym, którzy dodatkowo przechowują informację o kolejnych stanach świata i są w stanie modelować konsekwencje swoich działań. Z formalnego punktu widzenia agent czysto reaktywny musi posiadać przynajmniej dwie metody – see() pozwalającą na pobranie wiedzy o świecie i action() pozwalającą na oddziaływanie na świat. Agent z parametrem wewnętrzym posiada dodatkową metodę next() tworzącą model świata na podstawie infomacji zwróconych przez see(). Kolejne modele świata są zapamiętywane w bazie danych.  
+Cechą wyróżniającą agentów od pozostałych obiektów jest autonomiczność działania. Agent na podstawie swojego stanu lub wiedzy o świecie może sam zdecydować o podjęciu działania. Ze względu na źródło sterowania akcją wyróżnia się \textbf{agentów czysto reaktywnych} i  \textbf{agentów z parametrem wewnętrznym}. 
+
+Z formalnego punktu widzenia agent czysto reaktywny musi posiadać przynajmniej dwie metody – \textit{see()} pozwalającą na pobranie wiedzy o świecie oraz \textit{action()} pozwalającą na oddziaływanie na świat. Źródłem akcji jest aktualna wiedza o świecie.
+
+Agent z parametrem wewnętrzym dodatkowo tworzy modele świata, które może przechować w bazie danych. Posiada metodę \textit{next()} która generuje model na podstawie dwóch źródeł: informacji z otoczenia lub przewidywanych konsekwencji dostępnych akcji. Źródłem akcji jest wewnętrzny model świata. 
 
 Działanie agentów z parametrem wewnętrznym może być traktowane jako podróż po grafie skierowanym, którego wierzchołkami są różne modele świata, a krawędziami dostępne akcje. Planowanie działań sprowadza się do wyznaczenia ścieżki między początkowym a końcowym stanem świata.
-
-Robot stanowi interfejs pomiędzy agentem a światem rzeczywistym.  (agent upostaciowiony robot)
 
 \section{Model BDI}
 Model belief-desire–intention (model przekonań-pragnień-intencji) to metodyka projektowania agentów. 
@@ -22,8 +32,9 @@ Naturalnym dla człowieka jest zaspokajanie swoich potrzeb poprzez określenie c
 Dekompozycja porządanego stanu na działania, które do niego prowadzą.
 
 % Planner, 
-
 % model symuluje zachowanie człowieka
+\section{Robot społeczny}
+% Robot stanowi interfejs pomiędzy agentem a światem rzeczywistym.  (agent upostaciowiony robot)
 
-\section{Robot społeczny NAO}
+\section{NAO jako robot społeczny}
 % Nao posiada dobrze rozwinięte niższe warstwy sterowania, nie ma jednak narzędzi do 
