@@ -5,5 +5,30 @@
 % Zastosowanie goap w robotyce, RGOAP, Felix Kolbe
 % GOAP a model BDI
 
-% \section{Charakterystyka środowiska GOAP}
+\section{Maszyna stanów}
+
+Do sterowania robotami wykorzystuje się automaty skończone (FMS – skończone maszyny stanów). Działania robota są rozpisywane jako osobne scenariusze. 
+
+- FMS są łatwe w programowaniu i niezawodne.
+- Robot kontrolowany przez FSM może znajdować się tylko w jednym z dostępnych stanów.
+- Programista musi samodzielnie zaprogramować warunki przejścia między stanami. Określona może zostać macierz przejść między stanami. Liczba istniejących potencjalnie przejść między stanami jest kwadratem liczby stanów. Stany moga zawierać wewnętrzne zmienne, które jeszcze bardziej komplikują problem. Odróżnienie "wewnętrznych zmiennych" danego stanu od potencjalnej informacji mogącej nieść wiedzę o świecie staje się problematyczne.
+- Trudność programowania przejść jest problemem motywującym do poszukiwania lepszych rozwiązań.
+- 
+
+Mamy: zbiór stanów, w tym stan początkowy, macierz przejść między stanami, wejścia i wyjścia automatu,
+
+\section{Charakterystyka środowiska GOAP}
+
+% GOAP Goal oriented action planning, (planowanie zadań zorientowane na cel) - 
+
+GOAP to system planowania akcji agentów, zaprojektowany przez Jeffa Orkina w 2003 roku na potrzeby gry komputerowej F.E.A.R.
+
+Wiedza agenta opisana jest za pomocą "condition", które są zmiennymi z przypisanymi wartościami. Kolekcja "condition" stanowi stan świata. % Na podstawie "condition" definiuje się efekty i 
+
+Agent posiada zbiór dostępnych akcji. Każda akcja ma określone warunki i efekty rozumiane jako stany świata z przypisanymi wartościami. 
+
+% GOAP przechowuje informacje o stanie świata, bądącą kolekcją 
+
+% specjalnie do kontrolowania w czasie rzeczywistym autonomicznego zachowania postaci w grach. 
+
 % \section{GOAP w robotyce}

@@ -1,6 +1,42 @@
 \documentclass[eng,printmode]{mgr}
 \usepackage[utf8]{inputenc}
 \usepackage[MeX]{polski}
+
+\usepackage{color}
+\usepackage{listings} % Załączanie kodu
+\usepackage{wrapfig}
+\usepackage{hyperref} 
+
+\usepackage{setspace}
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\singlespace\vspace{-\topsep}\small}
+\AtEndEnvironment{quote}{\vspace{-\topsep}\endsinglespace}
+
+\definecolor{mybackground}{rgb}{0.97,0.97,0.97}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  language=Python,
+  backgroundcolor=\color{mybackground},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=1,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+
+
+
 % \usepackage{biblatex}
 
 \author{Juliusz Stanisław Tarnowski}
@@ -11,6 +47,9 @@
 \field{Automatyka i Robotyka (AiR)}
 \specialisation{Robotyka (ARR)}
 \date{2018}
+
+\usepackage{titlesec}
+\titlespacing*{\subsubsection}{0pt}{0.75\baselineskip}{0.25\baselineskip}
 
 \begin{document}
 
@@ -24,6 +63,7 @@
 \input{2_agent.tex}
 \input{3_goap.tex}
 \input{4_praktyczna.tex}
+\input{5_kod.tex}
 
 % \bibliographystyle{plabbrv}
 % \bibliography{bibliografia.bib}{}

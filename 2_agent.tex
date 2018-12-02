@@ -1,40 +1,48 @@
 \chapter{Problem sterowania robotem społecznym}
-% TODO:
-% Definicja agenta mobilnego. Obiekt sa model. Warstwowość agentów.
-% Model BDI, intuicyjność rozwiązania, 
-% Robot NAO, możliwości sterowania, choreograph, naoqi, ROS
-% Brak wysokopoziomowej warstwy sterowania
 
 \section{Agent mobilny}
-% Słownik języka polskiego nie definiuje słowa agent w takim rozumieniu, w jakim będzie ono używane w poniższej pracy, ponieważ jest to zapożyczenie z języków obcych. Jedna z definicji oksfordzkiego słownika języka angielskiego mówi: "A person or thing that takes an active role or produces a specified effect", co można przetłumaczyć jako "Osoba lub rzecz, która bierze udział lub przyczynia się do realizacji określonego efektu".
+Słownik języka polskiego nie definiuje słowa agent w takim rozumieniu, w jakim będzie ono używane w poniższej pracy, ponieważ jest to zapożyczenie z języków obcych. Jedna z definicji oksfordzkiego słownika języka angielskiego mówi: "A person or thing that takes an active role or produces a specified effect", co można przetłumaczyć jako "Osoba lub rzecz, która bierze udział lub przyczynia się do realizacji określonego efektu". 
 
-% "An independently operating Internet program, typically one that performs background tasks such as information retrieval or processing on behalf of a user or other program" 
+Pojęcie agenta pochodzi z informatyki, gdzie oznacza autonomiczny program realizujący zadanie, np. zbieranie i przetwarzanie infomacji.
 
-% "Autonomicznie działający program internetowy, zazwyczaj realizujący w tle takie działania jak gromadzenie lub przetwarzanie danych w imieniu użytkownika lub innego programu"
+Najłatwiej jest opisać agenta jako obiekt (w rozumieniu programowania obiektowego) [1]. Obiekty składają się pól i posiadają metody. Dostęp do zawartości pól i do wywoływania metod może być ograniczany (prywatny) lub ogólnie dostępny (publiczny), ale decyzja o podjęciu przez obiekt jakiegoś działania delegowana jest do wyższych warstw programu, np. nadrzędnej funkcji, lub programisty wywołującego metodę z poziomu linii komend. 
 
-% Agent jest autonomicznym programem, przetwarzającym percepcję na działanie. Uprzedmiotowiony agent jest robotem.
-
-\subsection{Agent jako obiekt}
-
-Agent stanowi formę pośrednią między programem komputerowym a robotem. Najłatwiej jest opisać agenta jako obiekt (w rozumieniu programowania obiektowego). Obiekty składają się pól i posiadają metody. Dostęp do zawartości pól i do wywoływania metod może być ograniczany (prywatny) lub ogólnie dostępny (publiczny), ale decyzja o podjęciu przez obiekt jakiegoś działania delegowana jest do wyższych warstw programu, np. nadrzędnej funkcji, lub programisty wywołującego metodę z poziomu linii komend. 
-
-Cechą wyróżniającą agentów od pozostałych obiektów jest autonomiczność działania. Agent na podstawie swojego stanu lub wiedzy o świecie może sam zdecydować o podjęciu działania. 
-
+Cechą wyróżniającą agentów od pozostałych obiektów jest autonomiczność działania. Agent na podstawie swojego stanu lub wiedzy o świecie może samodzielnie zdecydować o podjęciu działania. Pojęcie agenta przeszło z informatyki do robotyki, gdzie jest rozumiane jako obiekt przekształcający percepcję na inteligentne działanie. Robot jest agentem uprzedmiotowionym, czyli posiadającym fizyczną formę i oddziałującym z realnym światem.
 
 \subsection{Klasyfikacja CERT}
-% prof. Cezary Zieliński
 
-\subsection{Klasyfikacja }
+%\begin{wraptable}{p}{0.5\linewidth}
+%\caption{Typy agentów}
+%\label{tab:cert}
+%\begin{tabular}{ | l | p{6cm} | } \hline
+%C & zbyt prymitywny do realizacji jakiegokolwiek zadania \\ \hline
+%CE  & mogący jedynie oddziaływać na otoczenie \\ \hline
+%CR & jedynie gromadzący dane \\ \hline
+%CT & zdolny do komunikacji, mogący przetwarzać dane, "serwer", "obliczenia w chmurze" \\ \hline
+%CER & agent niezależny \\ \hline
+%CET & zdalny efektor  \\ \hline
+%CRT & zdalny czujnik \\ \hline
+%CERT & kompletny agent \\ 
+%\hline
+%\end{tabular}
+%\end{wraptable} 
+
+W pracy [2] prof. Cezary Zieliński przedstawia osiem typów agentów, podzielonych ze względu na komponenty wchodzące w ich skład. Możemy wyróżnić cztery podsystemy: sterowania (C), stanowiący podstawowy element struktury agenta; efektorów (E), oddziaływujący na otoczenie; receptorów (R), zbierający informacje o stanie otoczenia; oraz komunikacji (T), pozwalający na wymianę informacji z innymi agentami. Podsystem sterowania jest niezbędny, podczas gdy pozostałe są opcjonalne. Pozwala to utworzyć klasyfikację, ze względu na posiadane podsystemy. Typy agentów opisano w tabeli 2.1. % \ref{tab:cert}. 
+
+W środowisku wieloagentowym podsystem komunikacji pełni kluczową rolę. Robot społeczny musi być zdolny do tworzenia społeczności, a więc nadawać i odbierać informacje. Struktura podsystemów agenta może być stała, lub zmienna. Niedoścignionym wzórem dla projektantów robotów są organizmy żywe charakteryzujące się zdolnością do: adaptacji do zmiennych warunków środowiska i poszerzania swoich możliwości dzięki wymianie informacji. 
+
+\subsection{Klasyfikacja ze względu na podsystem sterowania}
 % dr inż. Michał Gnatowski
-Ze względu na źródło sterowania akcją wyróżnia się \textbf{agentów czysto reaktywnych} i  \textbf{agentów z parametrem wewnętrznym}. 
+
+Ze względu na sposób działania podsystemu C można wyróżnić \textbf{agentów czysto reaktywnych}, którzy reagują na aktualny stan świata, oraz \textbf{agentów z parametrem wewnętrzym}, analizujących również poprzednie stany świata. 
 
 \subsubsection{Agent czysto reaktywny}
 
-Z formalnego punktu widzenia agent czysto reaktywny musi posiadać przynajmniej dwie metody – \textit{see()} pozwalającą na pobranie wiedzy o świecie oraz \textit{action()} pozwalającą na oddziaływanie na świat. Źródłem akcji jest aktualna wiedza o świecie.
+Działanie podsystemów R oraz E można zamodelować przy pomocy dwóch funkcji: see() zwracającej stan świata, oraz action() oddziałującej na świat. Zadaniem podsystemu sterowania jest przetworzyć wyjście funkcji see() na wejście funkcji action(). Opisywany agent zrealizuje zadanie bezpośrednio, przetwarzając dane ad hoc.
 
 \subsubsection{Agent z parametrem wewnętrzym}
 
-Agent z parametrem wewnętrzym dodatkowo tworzy modele świata, które może przechować w bazie danych. Posiada metodę \textit{next()} która generuje model na podstawie dwóch źródeł: informacji z otoczenia lub przewidywanych konsekwencji dostępnych akcji. Źródłem akcji jest wewnętrzny model świata. 
+Agent realizuje zadanie na podstawie wygenerowanych modeli świata. Modele te mogą być przechować w bazie danych. Oprócz podsystemów E i R modelowany jest również C z użyciem funkcji \textit{next()} którą wywołana jest na dwa sposoby. Argumentem tej funkcji mogą być informacje z otoczenia (wyjście funkcji see()). Agent tworzy wtedy aktualny model świata. Argumentem może być również para: istniejący już model i jedna z dostępnych akcji. Pozwala to na przewidywanie konsekwencji akcji i tworzenie planów. 
 
 Działanie agentów z parametrem wewnętrznym może być traktowane jako podróż po grafie skierowanym, którego wierzchołkami są różne modele świata, a krawędziami dostępne akcje. Planowanie działań sprowadza się do wyznaczenia ścieżki między początkowym a końcowym stanem świata.
 
@@ -59,19 +67,24 @@ Opisują hierarhię pragnień agenta.
 
 % Planner, 
 % model symuluje zachowanie człowieka
+
 \section{Robot społeczny}
-Cechy robota społecznego:
+Robot społeczny, to uprzedmiotowiony agent, który posiada . Robot stanowi interfejs pomiędzy agentem a światem rzeczywistym. 
+Działa deliberatywnie – cyklicznie wykonuje trzy działania: odczuwa, planuje i działa.
+% W pracy Fonga, Nourbakhsha i Dautenhahna wymieniono następujące
+\subsubsection{Cechy robota społecznego}
 \begin{itemize}
-    \item express and/or perceive emotions;
-    \item communicate with high-level dialogue;
-    \item learn/recognize models of other agents;
-    \item establish/maintain social relationships;
-    \item use natural cues (gaze, gestures, etc.);
-    \item exhibit distinctive personality and character;
-    \item may learn/develop social competencies.
+    \setlength\itemsep{0em}
+    \item wyrażanie i postrzeganie emocji;
+    \item zdolność do wysokopoziomowej komunikacji werbalnej; 
+    \item wykorzystywanie naturalnych gestów, "mowy ciała", do komunikacji niewerbalnej;
+    \item rozpoznawanie i zapamiętywanie innych agentów, lub ludzi;
+    \item nawiązywanie i utrzymywanie relacji społecznych;
+    \item posiadanie własnego charakteru i cech osobowości;
+    \item zdolność do nauki i rozwiniania umiejętności społecznych.
 \end{itemize}
 
-% Robot stanowi interfejs pomiędzy agentem a światem rzeczywistym.  (agent upostaciowiony robot)
+%  (agent upostaciowiony robot - embodied agents)
 
-\section{NAO jako robot społeczny}
+\section{Robot NAO}
 % Nao posiada dobrze rozwinięte niższe warstwy sterowania, nie ma jednak narzędzi do 

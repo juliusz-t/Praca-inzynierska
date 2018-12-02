@@ -1,0 +1,19 @@
+\chapter{Załączniki}
+
+Aby poprawnie uruchomić skrypty należy mieć zainstalowane wszystkie niezbędne biblioteki, oprogramowanie ROS, oraz uruchomiony program Choreographe w wersji 2.1.2. Wszystkie pliki powinny znajdować się w jednym folderze, aby Python poprawnie je załączył.
+
+\section*{robot.py}
+Plik z klasą robota pozwalający na automatyczne połączenie się z nim i wykonywanie metod w bezpieczny sposób.
+\lstinputlisting[language=Python]{scripts/robot.py}
+
+\section*{smach\_runner.py}
+Skrypt jest prostym demontratorem sterowania Nao przy pomocy SMACH. Zdefiniowano trzy stany oraz funkcję main(), tworzącą instację robota, wątek w ROSie, maszynę stanów i jej macierz przejść. Poniżej uruchomiono maszynę stanów. Dzięki "serwerowi introspekcji" możliwe jest przedstawienie diagramu maszyny. W tym celu należy (po uruchomieniu skryptu) wywołać komendę: \textit{rosrun smach\_viewer smach\_viewer.py}
+\lstinputlisting[language=Python]{scripts/smach_runner.py}
+
+\section*{rgoap\_agent.py}
+Plik zawiera informacje o agencie oraz jego akcjach i celach. Na początku utworzona zostaje instancja robota. Trzy akcje zdefiniowane jako klasy dziedziczące po \textit{ROSTopicAction}, posiadają przesłonione, niezbędne do działania metody. W ich konstruktorach zdefiniowano warunki i efekty. Funkcje \textit{get\_all\_conditions(memory)} i \textit{get\_all\_actions(memory)} zwracające listę stanów świata i dostępnych akcji są wymagane przez późniejsze elementy programu. Klasa \textit{GoalReady} dziedzicząca po \textit{Goal} opisuje cel agenta. Funkcja \textit{get\_all\_goals(memory)} zwraca cel umieszczony w odpowiedniej strukturze danych.
+\lstinputlisting[language=Python]{scripts/rgoap_agent.py}
+
+\section*{rgoap\_runner.py}
+Skrypt składa się z pojedynczej funkcji i jest próbą uruchomienia RGOAP. Zdefiniowano węzeł ROSa, z wykorzystaniem "nadawców" zainicjowano stan świata. Niezbędne jest wywołanie metody \textit{sleep()}, aby przesłane wiadomości miały czas zostać zaktualizowane przez ROSa. Obiekt klasy Runner() jako argument przyjmuje zaimportowany plik z definicją agenta. Niestety metoda \textit{plan\_and\_execute\_goals()} nie realizuje poprawnie swojego działania, a przyczyna tego stanu rzeczy jest nie znana autorowi pracy.
+\lstinputlisting[language=Python]{scripts/rgoap_runner.py}
