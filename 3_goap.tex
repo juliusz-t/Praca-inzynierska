@@ -5,9 +5,48 @@
 % Zastosowanie goap w robotyce, RGOAP, Felix Kolbe
 % GOAP a model BDI
 
+Środowisko GOAP to system planowania akcji, umożliwiający tworzenie w czasie rzeczywistym automatów skończonych wykorzystywanych do sterowania bohaterami niezależnymi w grach czasu rzeczywistego. 
+
+\section{Agenci w grach komputerowych}
+
+Rozwijaniem naturalnej interakcji między ludźmi a programami zajmuje się nie tylko robotyka społeczna, ale także twórcy gier komputerowych. Sztuczna inteligencja jest jednym z najważniejszych elementów rozgrywki. Gracze oczekują, że bohaterowie niezależni (ang. NPC – non-player character) będą zachowywać się, jak gdyby sterowali nimi ludzie. Podobne wymagania stawiane są robotom społecznym, dlatego zasadnym jest zapewnienie przepływu technologii.
+
+Branża gier jest źródłem ciągłych innowacji, ponieważ różnorodność i oryginalność jest kluczem sukcesu finansowego. Zainteresowanie klientów i inwestorów przyczyniło się do rozwoju dziedzin elektroniki nie związanych bezpośrednio z programowaniem, czego przykładem może być opracowanie kamery głębokości Kinect wykorzystywanej obecnie w robotyce. Gry generując duży popyt na sprzęt komputerowy przyspieszyły rozwój procesorów i kart graficznych.  
+
+\subsection{Sterowanie bohaterami niezależnymi a model BDI}
+Istnieje wiele gatunków gier – gry turowe, np. strategiczne lub logiczne, czy gry czasu rzeczywistego, np. tzw. shootery lub gry fabularne. Każda z nich wymaga innego podejścia przy projektowaniu podsystemu sterowania agenta. Robot społeczny działa w dynamicznym, niedeterministycznym środowisku, dlatego najłatwiej zastosować technologie z gier czasu rzeczywistego.
+
+Celem gry jest zazwyczaj zrealizowanie jakiejś misji lub kolekcjonowanie osiągnięć (ang. achievement). Niezależnie od gatunku gry, działanie NPC powinno sprawiać wrażenie celowego, a więc być zorientowane na realizację zadań. Wielu twórców, celowo lub nieświadomie, korzysta z elementów modelu BDI. Istniejące rozwiązania można wykorzystać przy tworzeniu implementacji agenta BDI.
+Często jednak biblioteki nie są napisane na tyle uniwersalnie, aby móc zastosować je bezpośrednio w robotyce i konieczne jest określenie zakresu zastosowań technologii.
+
+Studio Monolith podczas rozwoju strzelanki pierwszoosobowej (ang. FPS – first-person shooter) o tytule F.E.A.R, spotkało się z problemem koordynowania zachowania grupy bohaterów niezależnych walczących przeciw graczowi. Postaci powinny kryć się przez ogniem przeciwnika, w przypadku wyczerpania amunicji zaatakować innym rodzajem broni lub zbliżyć się, aby skuteczniej zadawać obrażenia.
+
+Dzięki zaproponowanemu rozwiązaniu były w stanie zastawiać zasadzki lub wykorzystywać przewagę ukształtowania terenu. W niektórych przypadkach, gdy NPC uznał, że wygrana nie jest możliwa, uciekał z pola bitwy i już więcej się nie pojawiał, co było nowatorskim rozwiązaniem.
+
+% \subsection{Bohaterowie niezależni jako agenci CERT}
+\subsection{Porównanie robotów społecznych i bohaterów niezależnych jako agentów CERT}
+Aby określić możliwość zastosowania technologii z gier komputerowych w robotyce należy porównać problemy i rozwiązania pojawiające się tych dziedzinach.
+
+Przede wszystkim agenty będą różnić się od siebie sposobem zdobywania wiedzy. Robot nie ma bezpośrednich informacji o stanie świata, musi wykorzystać sygnały z czujników (rzeczywistych receptorów), a następnie modelować otoczenie i estymować parametry (używając wirtualne receptory). NPC może pobierać dane nieobarczone niepewnością bezpośrednio z silnika gry, stanowiącego element podsystemu komunikacji T. 
+
+Jednak mimo tej różnicy w obu przypadkach można zastosować podobny sposób reprezentacji wiedzy. Agent powinien dysponować "osobistym" stanem wiedzy o świecie, posiadać prywatne cele i swój charakter. 
+
+Koszt jednostkowy robota zazwyczaj jest bardzo wysoki, często pracuje samodzielnie. W grze może pojawić się bardzo wiele postaci. Aby nie były monotonne konieczne jest nadanie im różnych cech charakteru. Można to zrobić przypisując im różne kompetencje lub dostępne akcje, na przykład jeden z NPC może być liderem swojej grupy. Mając dostęp do wielu robotów można projektować ich zachowanie z myślą o różnorodnych rolach, jakie mogą pełnić. Jednak pracując z tylko jednym robotem ograniczanie jego możliwości, poprzez usuwanie niektórych modułów może być kosztowne.
+
+Roboty w przypadku interakcji, ze względu na obecność w ich otoczeniu ludzi, powinny komunikować swoje działania bezpośrednio, aby człowiek mógł je analizować i przewidywać. W przeciwnym wypadku zachowanie może być niezrozumiałe dla odbiorcy pogarszając jego relację z robotem. Gry komputerowe koncentrują się zazwyczaj na rywalizacji z graczem, więc informacje mogą być przekazywane niejawnie w celu zwiększenia poziomu trudności.
+
+Przy transferze rozwiązań należy uwzględnić, że w robotyce podsystemy E i R powinny przejąć wiele kompetencji realizowanych w grach przez podsystem komunikacji.
+
+% \subsection{Istniejące rozwiązanie}
+
+
 \section{Automat skończony}
 
-Do sterowania robotami wykorzystuje się automaty skończone (FMS – skończone maszyny stanów). Działania robota są rozpisywane jako osobne scenariusze. 
+Popularne zarówno w grach jak i robotyce jest wykorzytanie automatów skończonych (FMS – skończone maszyny stanów). Działania agenta są rozpisywane jako scenariusze. 
+
+Automat skończony jest używany przy sterowaniu robotem NAO w programie Choreographe.
+
+
 
 - FMS są łatwe w programowaniu i niezawodne.
 - Robot kontrolowany przez FSM może znajdować się tylko w jednym z dostępnych stanów.
@@ -21,7 +60,9 @@ Mamy: zbiór stanów, w tym stan początkowy, macierz przejść między stanami,
 
 % GOAP Goal oriented action planning, (planowanie zadań zorientowane na cel) - 
 
-GOAP to system planowania akcji agentów, zaprojektowany przez Jeffa Orkina w 2003 roku na potrzeby gry komputerowej F.E.A.R.
+GOAP to system planowania akcji, zaproponowany przez Jeffa Orkina w 2003 roku na potrzeby gry komputerowej F.E.A.R., którego podstawowe idee przedstawiono w \cite{ORKI}. 
+
+
 
 Wiedza agenta opisana jest za pomocą "condition", które są zmiennymi z przypisanymi wartościami. Kolekcja "condition" stanowi stan świata. % Na podstawie "condition" definiuje się efekty i 
 
