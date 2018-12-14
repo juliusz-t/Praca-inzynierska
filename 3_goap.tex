@@ -29,7 +29,7 @@ Aby określić możliwość zastosowania technologii z gier komputerowych w robo
 
 Przede wszystkim agenty będą różnić się od siebie sposobem zdobywania wiedzy. Robot nie ma bezpośrednich informacji o stanie świata, musi wykorzystać sygnały z czujników (rzeczywistych receptorów), a następnie modelować otoczenie i estymować parametry (używając wirtualne receptory). NPC może pobierać dane nieobarczone niepewnością bezpośrednio z silnika gry, stanowiącego element podsystemu komunikacji T. 
 
-Jednak mimo tej różnicy w obu przypadkach można zastosować podobny sposób reprezentacji wiedzy. Agent powinien dysponować "osobistym" stanem wiedzy o świecie, posiadać prywatne cele i swój charakter. 
+Jednak mimo tej różnicy w obu przypadkach można zastosować podobny sposób reprezentacji wiedzy. Agent powinien dysponować "osobistym" stanem wiedzy o świecie, posiadać prywatne cele i swój charakter. Stan wiedzy może być jednak uwspólniony – wielu agentów może wymieniać między sobą informacje z wykorzystaniem podsystemu komunikacji (silnik w przypadku gry, lub np. ROS w przypadku robotów).
 
 Koszt jednostkowy robota zazwyczaj jest bardzo wysoki, często pracuje samodzielnie. W grze może pojawić się bardzo wiele postaci. Aby nie były monotonne konieczne jest nadanie im różnych cech charakteru. Można to zrobić przypisując im różne kompetencje lub dostępne akcje, na przykład jeden z NPC może być liderem swojej grupy. Mając dostęp do wielu robotów można projektować ich zachowanie z myślą o różnorodnych rolach, jakie mogą pełnić. Jednak pracując z tylko jednym robotem ograniczanie jego możliwości, poprzez usuwanie niektórych modułów może być kosztowne.
 
@@ -42,19 +42,38 @@ Przy transferze rozwiązań należy uwzględnić, że w robotyce podsystemy E i 
 
 \section{Automat skończony}
 
-Popularne zarówno w grach jak i robotyce jest wykorzytanie automatów skończonych (FMS – skończone maszyny stanów). Działania agenta są rozpisywane jako scenariusze. 
+Popularne zarówno w grach jak i robotyce jest wykorzystanie automatów skończonych (ang. FMS – skończone maszyny stanów). Automat skończony jest matematycznym modelem dynamicznego obiektu o dyskretnych stanach. Pozwala na tworzenie podsystemu sterowania agenta.
 
-Automat skończony jest używany przy sterowaniu robotem NAO w programie Choreographe.
+Działania agenta są rozpisywane jako scenariusze w postaci grafu skierowanego (diagramu stanów). Wierzchołki grafu reprezentują dostępne stany. Jeden ze stanów (początkowy) jest aktywowany jako pierwszy. Przy aktywacji stanu wywoływana jest funkcja (pozwalająca na realizację zadania przez agenta) zwracająca pewne wyjście. Wyjścia przypisane są krawędziom grafu, które łączą poprzedni stan z następnym, aktywując go. Jeżeli w grafie żadne dwa wierzchołki nie są połączone dwukrotnie w tym samym kierunku, to graf ten można przedstawić za pomocą tzw. macierzy przejść.
 
+W maszynie stanów nie wszystkie krawędzie muszą być podłączone z obu stron do wierzchołków. Można w ten sposób okreslić wejścia oraz wyjścia całego automatu. Stany podłączone do wejść mogą być stanami początkowymi. Stany posiadające wyjścia niepodłączone do żadnego kolejnego stanu są nazywane końcowymi. Pozwala to na traktowanie całego automatu jako "czarnej skrzynki", zapewniając modułowość – automat posiada taki sam inferfejs jak pojedyczny stan. Dzięki temu automaty sterujące agentami mogą być wielopoziomowe. Skomplikowane działania rozpisywane są jako automaty, wykorzystywane później w taki sam sposób, jak atomowe stany.
 
+\subsection{Klasyfikacja automatów skończonych}
 
-- FMS są łatwe w programowaniu i niezawodne.
-- Robot kontrolowany przez FSM może znajdować się tylko w jednym z dostępnych stanów.
-- Programista musi samodzielnie zaprogramować warunki przejścia między stanami. Określona może zostać macierz przejść między stanami. Liczba istniejących potencjalnie przejść między stanami jest kwadratem liczby stanów. Stany moga zawierać wewnętrzne zmienne, które jeszcze bardziej komplikują problem. Odróżnienie "wewnętrznych zmiennych" danego stanu od potencjalnej informacji mogącej nieść wiedzę o świecie staje się problematyczne.
-- Trudność programowania przejść jest problemem motywującym do poszukiwania lepszych rozwiązań.
-- 
+Istnieją automaty deterministyczne oraz niedeterministyczne. Każdy automat niedeterministyczny można sprowadzić do automatu deterministycznego. Zazwyczaj powoduje to utworzenie wykładniczo większego automatu, jest więc niepraktyczne. Automaty niedeterministyczne są trudniejsze w implementacji, ale są ciekawsze z punktu widzenia robotyki społecznej, ponieważ pozwalają łatwiej uzyskać większą różnorodność w działaniu robota.
 
-Mamy: zbiór stanów, w tym stan początkowy, macierz przejść między stanami, wejścia i wyjścia automatu,
+W podstawowej wersji automat może mieć aktywowany tylko jeden stan, ale można zaproponować rozszerzenie pozwalające na uruchomienie kilku stanów symultanicznie. Taki automat skończony jest używany przy sterowaniu robotem NAO w programie Choreographe.
+
+\subsection{Automaty skończone przy sterowaniu agentami czasu rzeczywistego}
+
+Programując scenariusze agentów pracujących w czasie rzeczywistym zasadnym jest przyjęcie pewnych konwencji. Każde działanie agenta powinno mieć określone warunki PRE i POST. Prowadzi to do określenia trzech "domyślnych stanów" agenta: 
+\begin{itemize}
+\setlength\itemsep{-0.4em}
+    \item Gdy pożądany cel nie może być określony (warunki PRE nie są spełnione i nie można nic z tym zrobić), agent powinien czekać (stan bezczynny, ang. \textit{idle}). 
+    \item Gdy warunki PRE mogą zostać osiągnięte agent może dążyć do ich wypełnienia. Najczęściej agent musi znaleźć się w określonym miejscu, więc często ten stan manifestuje się jako przemieszczenie się do wybranego punktu (ang. \textit{go to}). 
+    \item Gdy wszystkie warunki PRE są spełnione agent może przejść do realizacji zadania (ang. \textit{perform action}). 
+\end{itemize}
+
+Zaproponowana konwencja nie jest jedną, jednak wykorzystywaną w praktyce. Taki podział tworzy kilka możliwych podejść. 
+
+Wymienione stany mogą stanowić bazę definiowanych działań, czyli każdy ze stanów wchodzi w skład interfejsu funkcji wywoływanej przy przejściach nadrzędnego . Mogą być nadrzędną maszyną stanów, 
+
+\subsection{Problemy}
+
+Tworzenie scenariuszy z użyciem automatów skończonych jest łatwe i niezawodne, w związku z czym zyskało dużą popularność przy sterowaniu agentami. Ma jednak swoje wady, ponieważ każdy możliwy scenariusz musi być przewidziany przez programistę. W grach komputerowych, ale szczególnie w robotyce społecznej przeoczenie przez programistę niektórych scenariuszy może prowadzić do nieoczekiwanego, nieintuicyjnego zachowania agenta. Liczba istniejących potencjalnie przejść między stanami jest kwadratem liczby stanów. Dodatkowo funkcje aktywowane przy uruchamianiu stanu mogą zawierać wewnętrzne zmienne, lub pobierać argumenty z zewnętrznego źródła. 
+
+Inteligentny robot społeczny powinien być w stanie samodzielnie planować swoje akcje a nie polegać wyłącznie na gotowych scenariuszach, dlatego zasadne wydaje się zautomatyzowanie generowania automatów skończonych.
+
 
 \section{Charakterystyka środowiska GOAP}
 
@@ -62,23 +81,21 @@ Mamy: zbiór stanów, w tym stan początkowy, macierz przejść między stanami,
 
 GOAP to system planowania akcji, zaproponowany przez Jeffa Orkina w 2003 roku na potrzeby gry komputerowej F.E.A.R., którego podstawowe idee przedstawiono w \cite{ORKI}. 
 
+\subsection{Elementy środowiska GOAP}
 
-
-Wiedza agenta opisana jest za pomocą "condition", które są zmiennymi z przypisanymi wartościami. Kolekcja "condition" stanowi stan świata. % Na podstawie "condition" definiuje się efekty i 
-
-Agent posiada zbiór dostępnych akcji. Każda akcja ma określone warunki i efekty rozumiane jako stany świata z przypisanymi wartościami. 
 
 % GOAP przechowuje informacje o stanie świata, bądącą kolekcją 
 
 % specjalnie do kontrolowania w czasie rzeczywistym autonomicznego zachowania postaci w grach. 
 
-% \section{GOAP w grach komputerowych}
+\subsection{GOAP a sterowanie agentami CERT}
 
+\subsection{Zastosowania w grach komputerowych}
 
-
-% \section{GOAP w robotyce}
-
+\subsection{Możliwość zastosowania w robotyce}
 
 % GOAP dobrze sprawdza się w systemach wieloagentowych. 
 % Pracuje w czasie rzeczywistym, dostosowuje się do zmiany środowiska, jednak bez dodatkowych elementów nie estymuje przyszłości i nie uwzględnia spontanicznych zmian w otaczającym świecie.
 % 
+
+\subsection{GOAP a model BDI}

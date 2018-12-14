@@ -1,21 +1,24 @@
 \chapter{Implementacja sterowania NAO}
-\section{Interfejs robota Nao}
+\section{Interfejs robota NAO}
 
-\subsubsection{NAOqi} System operacyjny autorstwa firmy Aldebaran, pozwalający na sterowanie robotem NAO, programowanie go oraz utworzenie wirtualnego agenta podłączonego do symulacji. Producent dostarcza zestaw narzędzi, pozwalających na pisanie programów w językach C++, Java lub Python. NAOqi może zostać uruchomione niezależnie od innych aplikacji z poziomu terminala.
+Aby zasymulować robota skorzystano z trzech narzędzi. 
 
-\subsubsection{Choreographe} Aplikacja okienkowa, umożliwiająca tworzenie scenariuszy działania robota w formie graficznej. Choreographe dostarcza bibliotekę akcji w postaci bloków, możliwych do połączenia przez programistę w automat skończony. Dzięki aplikacji można w łatwy sposób podłączyć się do fizycznego robota, utworzyć symulację, bądź połączyć się z działającą w systemie instacją NAOqi. W jednej z zakładek można zobaczyć wizualizację stanu robota, która działa wydajniej, niż inne dostępne rozwiązania.
+Wymagana jest wersja 2.1.2 NAOqi i Choreographe, ponieważ kolejnie nie są ze sobą w pełni kompatybilne z ROSem.
 
-\subsubsection{ROS} Oprogramowanie ułatwiające sterowanie robotami. Zapewnia zbiór narzędzi umożliwiających 
+\subsubsection{NAOqi} System operacyjny oparty o jądro Linux autorstwa firmy Aldebaran, pozwalający na sterowanie robotem NAO, programowanie go oraz utworzenie wirtualnego agenta podłączonego do symulacji. Instancja NAOqi działa na komputerze pokładowym robota. Producent dostarcza zestaw narzędzi, pozwalających na pisanie programów w językach C++, Java lub Python. NAOqi może zostać uruchomione niezależnie od innych aplikacji z poziomu terminala.
 
-tworzenie symulacji, 
-nadawanie i odbieranie wiadomości, 
-szkielet architektury wiadomości i serwisów
-zewnętrzne biblioteki, integracja z Pythonem, C++, przeglądarkami internetowymi
+\subsubsection{Choreographe} Aplikacja okienkowa, umożliwiająca tworzenie scenariuszy działania robota w formie graficznej. Choreographe dostarcza bibliotekę akcji w postaci bloków, możliwych do połączenia przez programistę w automat skończony. Dzięki aplikacji można w łatwy sposób podłączyć się do fizycznego robota, utworzyć symulację, bądź połączyć się z działającą w systemie insntacją NAOqi. W jednej z zakładek można zobaczyć wizualizację stanu robota, która działa wydajniej, niż inne dostępne rozwiązania.
+
+\subsubsection{ROS} Oprogramowanie ułatwiające sterowanie robotami. Zapewnia zbiór narzędzi umożliwiających nadawanie i odbieranie wiadomości, tworzenie symulacji, szkielet architektury wiadomości i serwisów, zewnętrzne biblioteki, integracja z Pythonem, C++, przeglądarkami internetowymi.
 
 Oprogramowanie ułożone w pakiety, ROS potrafi sam zadbać o odpowiednie zależności.
 
-Integracja z ROSem może otworzyć dodatkowe możliwości, takie jak komunikacja z otoczeniem i innymi robotami, poszerzenie zmysłów, poprzez integrację zewnęrznych czujników 
+Integracja z ROSem może otworzyć dodatkowe możliwości, takie jak komunikacja z otoczeniem i innymi robotami, poszerzenie zmysłów, poprzez integrację zewnętrznych czujników. 
+\\\\
+Po zaimportowaniu biblioteki \textit{rospy} oraz klasy \textit{ALProxy} z biblioteki \textit{naoqi} możliwe było połączenie się z robotem. Wymagało to użycia trzech linijek kodu: definiującej numery IP, numer portu oraz aktywującej  Przy korzystaniu z symulacji należy podmienić numer portu
 
+\ktem. W tym celu zdefiniowano klasę \textit{Robot}, której konstuktor laALProxy z broboiblioteki NAOqi.sy lliwe Możstinputlisting[language=Python,linerange=7-11,firstnumber=7]{scripts/robot.py}
+\lstinputlisting[language=Python,linerange=14-17,firstnumber=14]{scripts/robot.py}
 
 
 \section{SMACH}
@@ -23,8 +26,6 @@ Integracja z ROSem może otworzyć dodatkowe możliwości, takie jak komunikacja
 \subsection{Koncepcja zastosowania}
 Robot Nao nie posiada wbudowanego automatu skończonego. Dlatego celowe wydaje się zintegrowanie jego działania z zewnętrznym narzędziem do tworzenia automatów. 
 Zadanie można zrealizowac z użyciem SMACH (skrót od "State Machine"). Biblioteka ta została stworzona przez deweloperów ROSa, ale jest od niego niezależna i może być używana osobno. 
-
-Skończone maszyny stanów są wykorzystywane w robotyce od 
 
 \subsection{Implementacja}
 Pakiet SMACH jest instalowany domyślnie z ROSem. Z poziomu Pythona biblioteka jest importowana bez żadnych dodatkowych działań.
@@ -38,7 +39,14 @@ Działanie automatu skończonego ciężko nazwać inteligentnym. Robot nie planu
 
 SMACH wymaga zdefiniowania wszystkich możliwych stanów i zasad przejścia między stanami przed rozpoczęciem swojego działania. Jego działanie ma charakter statyczny i nie może być dostosowywane w trakcie realizacji programu. Wymaga to od programisty mądrego przemyślenia architektury systemu i uwzględnienia ewentualnych problemów przy realizacji zadania (np. kolizji robota z przeszkodą). 
 
-Mimo to, właśnie automaty skończone są podstawową metodą wykorzystywaną do interakcji robot - człowiek.
+% Mimo to, właśnie automaty skończone są podstawową metodą wykorzystywaną do interakcji robot - człowiek.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.90\textwidth]{images/NaoSmachPoses.png}
+\caption{Wirtualny robot zwizualizowany w Choreographe sterowany przez automat stanu SMACH.}
+\end{figure}
+
 
 \section{RGOAP}
 

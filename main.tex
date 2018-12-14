@@ -4,6 +4,7 @@
 
 \usepackage{color}
 \usepackage{listings} % Załączanie kodu
+\usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{hyperref} 
 
@@ -33,6 +34,7 @@
     tabsize=1,
     breaklines=true,
     breakatwhitespace=false,
+    literate={~} {$\sim$}{1}
 }
 
 
@@ -42,7 +44,7 @@
 \author{Juliusz Stanisław Tarnowski}
 \title{Zastosowanie środowiska GOAP do sterowania robotem NAO}
 \engtitle{The use of GOAP environment for control of a NAO robot}
-\supervisor{dr inż. Krzysztof Arent, Katedra Cybernetyki i Robotyki}
+\supervisor{dr inż. Krzysztof Arent, \\Katedra Cybernetyki i Robotyki}
 % \guardian{dr inż. Krzysztof Arent, Katedra Cybernetyki i Robotyki}
 \field{Automatyka i Robotyka (AiR)}
 \specialisation{Robotyka (ARR)}
@@ -55,12 +57,9 @@
 
 \maketitle
 
-%\dedication{12cm}{Chciałbym złożyć serdeczne podziękowania wszystkim osobom, które przyczyniły się do uzyskania przeze mnie tytułu inżyniera, a w szczególności:
-
-%Panu \textbf{dr. Krzysztofowi Arentowi} za merytoryczną pomoc i poświęcony czas na regularne spotkania. 
-
-%Bratu \textbf{Bartoszowi} i serdecznym kolegom, \textbf{Paulinie}, \textbf{Amadeuszowi}, \textbf{Maciejowi} i \textbf{Pawłowi}, którzy towarzyszyli mi i wielokrotnie pomagali w trakcie studiów. 
-
+%\dedication{\linewidth-1}{Chciałbym złożyć serdeczne podziękowania wszystkim osobom, które przyczyniły się do uzyskania przeze mnie tytułu inżyniera, a w szczególności: \par \vskip 0.05in
+%Panu \textbf{dr. Krzysztofowi Arentowi} za merytoryczną pomoc i czas poświęcony na regularne spotkania. \par \vskip 0.05in
+%Bratu \textbf{Bartoszowi} i serdecznym kolegom: \textbf{Paulinie}, \textbf{Amadeuszowi}, \textbf{Maciejowi} i\,\,\textbf{Pawłowi}, którzy towarzyszyli mi i wielokrotnie pomagali w trakcie studiów. \par \vskip 0.05in
 %Wszystkim aktywnym członkom grupy studenckiej \textbf{Offtop W4}, z uwzględnieniem szczególnej roli \textbf{Stefana} i \textbf{Sylwii}, za nadanie wyjątkowego charakteru studiom na Wydziale Elektroniki.}
 
 \tableofcontents

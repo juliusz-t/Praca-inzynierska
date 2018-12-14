@@ -1,0 +1,22 @@
+juliusz@rosbuntu:~/catkin_smach/src/test$ ./smach_runner.py 
+[I] 3227 qimessaging.session: Session listener created on tcp://0.0.0.0:0
+[I] 3227 qimessaging.transportserver: TransportServer will listen on: tcp://127.0.0.1:51041
+[I] 3227 qimessaging.transportserver: TransportServer will listen on: tcp://192.168.43.242:51041
+[INFO] [WallTime: 1544437900.130319] State machine starting in initial state 'POSE_ZERO' with userdata: 
+	[]
+[INFO] [WallTime: 1544437900.131135] Executing "zero" pose
+[INFO] [WallTime: 1544437901.061088] State machine transitioning 'POSE_ZERO':'outcome1'-->'POSE_CROUCH'
+[INFO] [WallTime: 1544437901.061509] Executing "crouch" pose
+[INFO] [WallTime: 1544437902.662007] State machine transitioning 'POSE_CROUCH':'outcome1'-->'POSE_ZERO'
+[INFO] [WallTime: 1544437902.663466] Executing "zero" pose
+[INFO] [WallTime: 1544437904.262161] State machine transitioning 'POSE_ZERO':'outcome1'-->'POSE_CROUCH'
+[INFO] [WallTime: 1544437904.263464] Executing "crouch" pose
+[INFO] [WallTime: 1544437905.861463] State machine transitioning 'POSE_CROUCH':'outcome1'-->'POSE_ZERO'
+[INFO] [WallTime: 1544437905.862558] Executing "zero" pose
+[INFO] [WallTime: 1544437907.461211] State machine transitioning 'POSE_ZERO':'outcome1'-->'POSE_CROUCH'
+[INFO] [WallTime: 1544437907.461643] Executing "crouch" pose
+[INFO] [WallTime: 1544437909.062067] State machine transitioning 'POSE_CROUCH':'outcome1'-->'POSE_ZERO'
+[INFO] [WallTime: 1544437909.063382] Executing "zero" pose
+[INFO] [WallTime: 1544437910.662175] State machine transitioning 'POSE_ZERO':'outcome2'-->'SIT_POSE'
+[INFO] [WallTime: 1544437910.663451] Executing "sit" pose
+[INFO] [WallTime: 1544437920.061901] State machine terminating 'SIT_POSE':'outcome1':'outcome'
