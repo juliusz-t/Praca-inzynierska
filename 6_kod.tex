@@ -1,4 +1,22 @@
+\newcommand{\mychapter}[2]{
+    \setcounter{chapter}{#1}
+    \setcounter{section}{0}
+    \chapter*{#2}
+    \addcontentsline{toc}{chapter}{#2}
+}
+
+%\mychapter{6}{Załączniki}
 \chapter{Załączniki}
+\label{chap:zalaczniki}
+
+Na załączonej do pracy płycie można znaleźć:
+\begin{itemize}
+\setlength\itemsep{-0.5em}
+    \item Folder ze scatkinizowaną implementacją RGOAP.
+    \item Pliki ze skryptami załączonymi poniżej.
+    \item Instrukcję instalacji środowiska oraz uruchomienia skryptów.
+    \item Wersję elektroniczną pracy.
+\end{itemize}
 
 Aby poprawnie uruchomić skrypty należy mieć zainstalowane wszystkie niezbędne biblioteki, oprogramowanie ROS, oraz uruchomiony program Choreographe w wersji 2.1.2. Wszystkie pliki powinny znajdować się w jednym folderze, aby Python poprawnie je załączył.
 
@@ -15,5 +33,5 @@ Plik zawiera informacje o agencie oraz jego akcjach i celach. Na początku utwor
 \lstinputlisting[language=Python]{scripts/rgoap_agent.py}
 
 \section*{rgoap\_runner.py}
-Skrypt składa się z pojedynczej funkcji i jest próbą uruchomienia RGOAP. Zdefiniowano węzeł ROSa, z wykorzystaniem "nadawców" zainicjowano stan świata. Niezbędne jest wywołanie metody \textit{sleep()}, aby przesłane wiadomości miały czas zostać zaktualizowane przez ROSa. Obiekt klasy Runner() jako argument przyjmuje zaimportowany plik z definicją agenta. Niestety metoda \textit{plan\_and\_execute\_goals()} nie realizuje poprawnie swojego działania, a przyczyna tego stanu rzeczy jest nie znana autorowi pracy.
+Skrypt składa się z pojedynczej funkcji i jest próbą uruchomienia RGOAP. Zdefiniowano węzeł ROSa, i zainicjowano stan świata. Niezbędne jest wywołanie metody \textit{sleep()}, aby przesłane wiadomości miały czas zostać zaktualizowane przez ROSa. Obiekt klasy \textit{Runner()} jako przyjmuje plik z definicją agenta. Niestety metoda \textit{plan\_and\_execute\_goals()} nie realizuje poprawnie swojego działania, a przyczyna niepowodzenia nie została ustalona.
 \lstinputlisting[language=Python]{scripts/rgoap_runner.py}

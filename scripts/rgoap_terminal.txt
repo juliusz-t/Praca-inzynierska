@@ -1,0 +1,21 @@
+juliusz@rosbuntu:~/catkin_rgoap/src/tutorial$ source /home/juliusz/catkin_rgoap/devel/setup.bash 
+juliusz@rosbuntu:~/catkin_rgoap/src/tutorial$ ./rgoap_runner.py 
+[I] 3218 qimessaging.session: Session listener created on tcp://0.0.0.0:0
+[I] 3218 qimessaging.transportserver: TransportServer will listen on: tcp://127.0.0.1:53366
+[I] 3218 qimessaging.transportserver: TransportServer will listen on: tcp://192.168.42.204:53366
+[INFO] [WallTime: 1546608492.85] Try to plan and to execute goals 
+[INFO] [WallTime: 1546608492.854502] worldstate initialized/updated to: WorldState {ROSTopicCondition:robot.squat: not_ready, ROSTopicCondition:robot.pose: init}
+[INFO] [WallTime: 1546608492.856319] Available goals:
+GoalReady (usability=10)
+[INFO] [WallTime: 1546608492.857730] Planner started
+actions: set([<ActionSit preconditions=[<Precondition cond=ROSTopicCondition:robot.pose value='stand_up' dev=None>, <Precondition cond=ROSTopicCondition:robot.squat value='ready' dev=None>] effects=[<Effect cond=robot.pose new_val='sit'>]>, <ActionStandUp preconditions=[<Precondition cond=ROSTopicCondition:robot.pose value='init' dev=None>] effects=[<Effect cond=robot.pose new_val='stand_up'>]>, <ActionSquat preconditions=[<Precondition cond=ROSTopicCondition:robot.pose value='stand_up' dev=None>] effects=[<Effect cond=robot.squat new_val='ready'>]>])
+start_worldstate: WorldState {ROSTopicCondition:robot.squat: not_ready, ROSTopicCondition:robot.pose: init}
+goal: GoalReady (usability=10)
+[INFO] [WallTime: 1546608492.859903] Planning loop #1
+[INFO] [WallTime: 1546608492.861632] Planning loop #2
+[INFO] [WallTime: 1546608492.863697] Planning loop #3
+[...]
+[INFO] [WallTime: 1546608496.091119] Planning loop #500
+[ERROR] [WallTime: 1546608496.101902] Planner stops because the loop limit (500) is hit!
+[WARN] [WallTime: 1546608496.103124] No plan found.
+[ERROR] [WallTime: 1546608496.104282] For no goal a plan could be found!

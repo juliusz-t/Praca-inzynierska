@@ -1,101 +1,235 @@
-\chapter{Środowisko GOAP}
+\chapter{System planowania działań}
+\label{chap:goap}
 % TODO
 % Podstawowe aspekty GOAP, pomysłodawca, zastosowania w grach komputerowych
 % Opis struktury GOAP: cele, akcje, stan świata, graf
 % Zastosowanie goap w robotyce, RGOAP, Felix Kolbe
 % GOAP a model BDI
 
-Środowisko GOAP to system planowania akcji, umożliwiający tworzenie w czasie rzeczywistym automatów skończonych wykorzystywanych do sterowania bohaterami niezależnymi w grach czasu rzeczywistego. 
+Środowisko GOAP to system planowania działań, umożliwiający tworzenie w czasie rzeczywistym automatów skończonych wykorzystywanych do sterowania wirtualnymi charakterami (bohaterami niezależnymi) w grach czasu rzeczywistego. W tym rozdziale dokonano oceny możliwości wykorzystania GOAP do implementacji modelu BDI.
 
 \section{Agenci w grach komputerowych}
+\label{sec:gry}
 
-Rozwijaniem naturalnej interakcji między ludźmi a programami zajmuje się nie tylko robotyka społeczna, ale także twórcy gier komputerowych. Sztuczna inteligencja jest jednym z najważniejszych elementów rozgrywki. Gracze oczekują, że bohaterowie niezależni (ang. NPC – non-player character) będą zachowywać się, jak gdyby sterowali nimi ludzie. Podobne wymagania stawiane są robotom społecznym, dlatego zasadnym jest zapewnienie przepływu technologii.
+Rozwijaniem naturalnej interakcji między ludźmi a programami zajmują się nie tylko robotycy, ale także twórcy gier komputerowych. Sztuczna inteligencja jest jednym z najważniejszych fundamentów tych działań. Gracze oczekują, że bohaterowie niezależni (ang. NPC – \textit{non-player character}) będą zachowywać się na podobnych zasadach i w podobny sposób jak ludzie. Podobne wymagania stawiane są robotom społecznym, dlatego zasadnym jest podejmowanie prób zastosowania technologii rozwiniętych dla gier komputerowych do robotów społecznych
 
-Branża gier jest źródłem ciągłych innowacji, ponieważ różnorodność i oryginalność jest kluczem sukcesu finansowego. Zainteresowanie klientów i inwestorów przyczyniło się do rozwoju dziedzin elektroniki nie związanych bezpośrednio z programowaniem, czego przykładem może być opracowanie kamery głębokości Kinect wykorzystywanej obecnie w robotyce. Gry generując duży popyt na sprzęt komputerowy przyspieszyły rozwój procesorów i kart graficznych.  
+Branża gier jest źródłem ciągłych innowacji z uwagi na silną konkurencję, oraz ponieważ różnorodność i oryginalność jest kluczem sukcesu finansowego. Zainteresowanie klientów i inwestorów przyczyniło się do rozwoju dziedzin elektroniki nie związanych bezpośrednio z programowaniem, czego przykładem może być opracowanie kamery RGB-D Kinect, obecnie szeroko wykorzystywanej w robotyce. Gry generując duży popyt na sprzęt komputerowy przyspieszyły rozwój procesorów i kart graficznych. Analogiczna sytuacja występuje w algorytmice i przy sterowaniu agentami.
 
 \subsection{Sterowanie bohaterami niezależnymi a model BDI}
-Istnieje wiele gatunków gier – gry turowe, np. strategiczne lub logiczne, czy gry czasu rzeczywistego, np. tzw. shootery lub gry fabularne. Każda z nich wymaga innego podejścia przy projektowaniu podsystemu sterowania agenta. Robot społeczny działa w dynamicznym, niedeterministycznym środowisku, dlatego najłatwiej zastosować technologie z gier czasu rzeczywistego.
+\label{subsec:g_BDI}
+Istnieje wiele gatunków gier, w szczególności gry turowe, np. strategiczne lub logiczne, gry czasu rzeczywistego, np. tzw. shootery lub gry fabularne. Każda z nich wymaga innego podejścia przy projektowaniu podsystemu sterowania agenta. W kontekście robota społecznego, który działa w dynamicznym, niedeterministycznym środowisku, potencjalnie najbardziej atrakcyjne są technologie z gier czasu rzeczywistego.
 
-Celem gry jest zazwyczaj zrealizowanie jakiejś misji lub kolekcjonowanie osiągnięć (ang. achievement). Niezależnie od gatunku gry, działanie NPC powinno sprawiać wrażenie celowego, a więc być zorientowane na realizację zadań. Wielu twórców, celowo lub nieświadomie, korzysta z elementów modelu BDI. Istniejące rozwiązania można wykorzystać przy tworzeniu implementacji agenta BDI.
-Często jednak biblioteki nie są napisane na tyle uniwersalnie, aby móc zastosować je bezpośrednio w robotyce i konieczne jest określenie zakresu zastosowań technologii.
+Celem gry jest zazwyczaj zrealizowanie jakiejś misji lub kolekcjonowanie osiągnięć (ang. \textit{achievement}). Niezależnie od gatunku gry, działanie NPC powinno sprawiać wrażenie celowego, a więc być zorientowane na realizację zadań. Z tego powodu wielu twórców gier komputerowych świadomie bądź podświadomie korzysta z elementów modelu BDI. W konsekwencji,  technologie 
+%(biblioteki, architektury, modele) 
+powstałe przy tworzeniu gier można wykorzystać przy tworzeniu implementacji agenta BDI.
+Często jednak biblioteki nie są napisane na tyle uniwersalnie, aby móc zastosować je bezpośrednio w robotyce. Konieczne jest określenie zakresu zastosowań technologii.
 
-Studio Monolith podczas rozwoju strzelanki pierwszoosobowej (ang. FPS – first-person shooter) o tytule F.E.A.R, spotkało się z problemem koordynowania zachowania grupy bohaterów niezależnych walczących przeciw graczowi. Postaci powinny kryć się przez ogniem przeciwnika, w przypadku wyczerpania amunicji zaatakować innym rodzajem broni lub zbliżyć się, aby skuteczniej zadawać obrażenia.
+Studio Monolith podczas rozwoju strzelanki pierwszoosobowej (ang. FPS – \textit{first-person shooter}) o tytule F.E.A.R, spotkało się z problemem koordynowania działań grupy bohaterów niezależnych walczących przeciw graczowi. W założeniu postaci gry powinny kryć się przez ogniem przeciwnika, a w przypadku wyczerpania amunicji zaatakować innym rodzajem broni lub zbliżyć się, aby skuteczniej zadawać obrażenia.
 
-Dzięki zaproponowanemu rozwiązaniu były w stanie zastawiać zasadzki lub wykorzystywać przewagę ukształtowania terenu. W niektórych przypadkach, gdy NPC uznał, że wygrana nie jest możliwa, uciekał z pola bitwy i już więcej się nie pojawiał, co było nowatorskim rozwiązaniem.
+Dzięki zaproponowanemu rozwiązaniu opartemu o system decyzyjny działający w czasie rzeczywistym, z planowaniem działań i systemem celów, przeciwnicy byli w stanie zastawiać zasadzki lub wykorzystywać przewagę ukształtowania terenu. W niektórych przypadkach, gdy NPC uznał, że wygrana nie jest możliwa, uciekał z pola bitwy i już więcej się nie pojawiał.~\cite{ORKIfear}. 
+% Zasadność wykorzystania środowiska GOAP przy projektowaniu architektury agenta BDI omówiono w rozdziale~\ref{subsec:GOAP_BDI}.
 
 % \subsection{Bohaterowie niezależni jako agenci CERT}
 \subsection{Porównanie robotów społecznych i bohaterów niezależnych jako agentów CERT}
-Aby określić możliwość zastosowania technologii z gier komputerowych w robotyce należy porównać problemy i rozwiązania pojawiające się tych dziedzinach.
+\label{subsec:g_CERT}
+Aby określić możliwość zastosowania technologii z gier komputerowych w robotyce należy porównać problemy i rozwiązania pojawiające się tych dziedzinach. Niniejszy rozdział stanowi kontynuację rozważań z rozdziału \ref{sec:agentCERT}, gdzie przedstawiono klasyfikację CERT oraz rozdziału \ref{subsec:CERT}, gdzie wykorzystano tę klasyfikację do scharakteryzowania robota społecznego.
 
-Przede wszystkim agenty będą różnić się od siebie sposobem zdobywania wiedzy. Robot nie ma bezpośrednich informacji o stanie świata, musi wykorzystać sygnały z czujników (rzeczywistych receptorów), a następnie modelować otoczenie i estymować parametry (używając wirtualne receptory). NPC może pobierać dane nieobarczone niepewnością bezpośrednio z silnika gry, stanowiącego element podsystemu komunikacji T. 
+Podstawową różnicą między omawianymi rodzajami agentów będzie sposób zdobywania wiedzy. Robot nie ma bezpośrednich informacji o stanie świata, musi wykorzystać sygnały z czujników (rzeczywistych receptorów), a następnie modelować otoczenie i estymować parametry (używając wirtualne receptory). NPC może pobierać dane nieobarczone niepewnością bezpośrednio z silnika gry, stanowiącego element podsystemu komunikacji~T.
 
-Jednak mimo tej różnicy w obu przypadkach można zastosować podobny sposób reprezentacji wiedzy. Agent powinien dysponować "osobistym" stanem wiedzy o świecie, posiadać prywatne cele i swój charakter. Stan wiedzy może być jednak uwspólniony – wielu agentów może wymieniać między sobą informacje z wykorzystaniem podsystemu komunikacji (silnik w przypadku gry, lub np. ROS w przypadku robotów).
+Jednak mimo tej różnicy w obu przypadkach można zastosować podobny sposób reprezentacji wiedzy. Agent powinien dysponować ,,osobistym'' stanem wiedzy o świecie, posiadać prywatne cele i swój charakter. Stan wiedzy może być też uwspólniony – wielu agentów może wymieniać między sobą informacje z wykorzystaniem podsystemu komunikacji (silnik w przypadku gry, lub np. ROS w przypadku robotów).
 
-Koszt jednostkowy robota zazwyczaj jest bardzo wysoki, często pracuje samodzielnie. W grze może pojawić się bardzo wiele postaci. Aby nie były monotonne konieczne jest nadanie im różnych cech charakteru. Można to zrobić przypisując im różne kompetencje lub dostępne akcje, na przykład jeden z NPC może być liderem swojej grupy. Mając dostęp do wielu robotów można projektować ich zachowanie z myślą o różnorodnych rolach, jakie mogą pełnić. Jednak pracując z tylko jednym robotem ograniczanie jego możliwości, poprzez usuwanie niektórych modułów może być kosztowne.
+% Koszt jednostkowy robota zazwyczaj jest bardzo wysoki, często pracuje samodzielnie. 
+W grze może pojawić się bardzo wiele postaci. Aby nie były monotonne dla użytkownika konieczne jest nadanie im różnych cech charakteru. Można to zrobić przypisując im różne kompetencje lub dostępne akcje. Na przykład jeden z NPC może być liderem swojej grupy. W przypadku współdziałania grupy robotów i człowieka, można projektować ich zachowanie z myślą o różnorodnych rolach, jakie mogą pełnić. Co więcej, każdy z tych robotów może funkcjonować w długoterminowej relacji z człowiekiem. W związku z tym, aby nie dopuścić do monotonii interakcji, zbiór jego zachowań powinien być bardziej wyrafinowany niż prosty.
 
-Roboty w przypadku interakcji, ze względu na obecność w ich otoczeniu ludzi, powinny komunikować swoje działania bezpośrednio, aby człowiek mógł je analizować i przewidywać. W przeciwnym wypadku zachowanie może być niezrozumiałe dla odbiorcy pogarszając jego relację z robotem. Gry komputerowe koncentrują się zazwyczaj na rywalizacji z graczem, więc informacje mogą być przekazywane niejawnie w celu zwiększenia poziomu trudności.
+Roboty w trakcie interakcji z człowiekiem powinny komunikować swoje intencje i działania w sposób naturalny. Dzięki temu będą przewidywalne i zrozumiałe dla człowieka. To z kolei wyeliminuje potencjalne lęki przed robotem i podniesie komfort interakcji człowieka. Gry komputerowe koncentrują się zazwyczaj na rywalizacji z graczem, więc informacje mogą być przekazywane niejawnie w celu zwiększenia poziomu trudności.
 
-Przy transferze rozwiązań należy uwzględnić, że w robotyce podsystemy E i R powinny przejąć wiele kompetencji realizowanych w grach przez podsystem komunikacji.
+Przy adaptacji w robotyce rozwiązań z gier komputerowych należy uwzględnić fakt, że w robotyce podsystemy E i R powinny przejąć wiele kompetencji realizowanych w grach przez podsystem komunikacji.
 
 % \subsection{Istniejące rozwiązanie}
 
-
 \section{Automat skończony}
 
-Popularne zarówno w grach jak i robotyce jest wykorzystanie automatów skończonych (ang. FMS – skończone maszyny stanów). Automat skończony jest matematycznym modelem dynamicznego obiektu o dyskretnych stanach. Pozwala na tworzenie podsystemu sterowania agenta.
+Popularne zarówno w grach jak i robotyce jest wykorzystanie automatów skończonych (ang. FMS, skrót od \textit{finite state machines}, dosłownie \textit{skończone maszyny stanów}). Automat skończony jest matematycznym modelem dynamicznego obiektu o dyskretnych stanach. Pozwala na tworzenie podsystemu sterowania agenta.~\cite{FOUK}
 
-Działania agenta są rozpisywane jako scenariusze w postaci grafu skierowanego (diagramu stanów). Wierzchołki grafu reprezentują dostępne stany. Jeden ze stanów (początkowy) jest aktywowany jako pierwszy. Przy aktywacji stanu wywoływana jest funkcja (pozwalająca na realizację zadania przez agenta) zwracająca pewne wyjście. Wyjścia przypisane są krawędziom grafu, które łączą poprzedni stan z następnym, aktywując go. Jeżeli w grafie żadne dwa wierzchołki nie są połączone dwukrotnie w tym samym kierunku, to graf ten można przedstawić za pomocą tzw. macierzy przejść.
+Działania agenta są rozpisywane jako scenariusze w postaci grafu skierowanego (diagramu stanów). Wierzchołki grafu reprezentują dostępne stany. Jeden ze stanów jest aktywowany jako pierwszy. Przy aktywacji stanu wywoływana jest funkcja pozwalająca na podjęcie akcji przez agenta. Funkcja ta kończąc swoje działanie zwracająca pewne wyjście. Wyjścia przypisane są krawędziom grafu, które łączą poprzedni stan z następnym, aktywując go. Jeżeli w grafie żadne dwa wierzchołki nie są połączone dwukrotnie w tym samym kierunku, to graf ten można przedstawić za pomocą tzw. macierzy przejść.
 
-W maszynie stanów nie wszystkie krawędzie muszą być podłączone z obu stron do wierzchołków. Można w ten sposób okreslić wejścia oraz wyjścia całego automatu. Stany podłączone do wejść mogą być stanami początkowymi. Stany posiadające wyjścia niepodłączone do żadnego kolejnego stanu są nazywane końcowymi. Pozwala to na traktowanie całego automatu jako "czarnej skrzynki", zapewniając modułowość – automat posiada taki sam inferfejs jak pojedyczny stan. Dzięki temu automaty sterujące agentami mogą być wielopoziomowe. Skomplikowane działania rozpisywane są jako automaty, wykorzystywane później w taki sam sposób, jak atomowe stany.
+W maszynie stanów nie wszystkie krawędzie muszą być podłączone z obu stron do wierzchołków. Można w ten sposób określić wejścia oraz wyjścia całego automatu. Stany podłączone do wejść mogą być stanami początkowymi. Stany posiadające wyjścia niepodłączone do żadnego kolejnego stanu są nazywane końcowymi. Pozwala to na traktowanie całego automatu jako ,,czarnej skrzynki'', zapewniając modułowość – automat posiada taki sam inferfejs jak pojedynczny stan. Dzięki temu automaty sterujące agentami mogą być wielopoziomowe. Skomplikowane działania rozpisywane są jako automaty, wykorzystywane później w taki sam sposób, jak atomowe stany.
 
-\subsection{Klasyfikacja automatów skończonych}
+\subsection{Klasyfikacja automatów skończonych z uwagi na determinizm}
 
-Istnieją automaty deterministyczne oraz niedeterministyczne. Każdy automat niedeterministyczny można sprowadzić do automatu deterministycznego. Zazwyczaj powoduje to utworzenie wykładniczo większego automatu, jest więc niepraktyczne. Automaty niedeterministyczne są trudniejsze w implementacji, ale są ciekawsze z punktu widzenia robotyki społecznej, ponieważ pozwalają łatwiej uzyskać większą różnorodność w działaniu robota.
+Istnieją automaty deterministyczne oraz niedeterministyczne. Każdy automat niedeterministyczny można sprowadzić do automatu deterministycznego, jest to jednak niepraktyczne. Automaty niedeterministyczne są trudniejsze w implementacji, ale są ciekawsze z punktu widzenia robotyki społecznej, ponieważ pozwalają łatwiej uzyskać większą różnorodność w działaniu robota.
 
-W podstawowej wersji automat może mieć aktywowany tylko jeden stan, ale można zaproponować rozszerzenie pozwalające na uruchomienie kilku stanów symultanicznie. Taki automat skończony jest używany przy sterowaniu robotem NAO w programie Choreographe.
+W podstawowej wersji automat może mieć aktywowany tylko jeden stan, ale można zaproponować rozszerzenie pozwalające na uruchomienie kilku stanów symultanicznie. % Taki automat skończony jest używany przy sterowaniu robotem NAO w programie Choreographe.
 
 \subsection{Automaty skończone przy sterowaniu agentami czasu rzeczywistego}
-
-Programując scenariusze agentów pracujących w czasie rzeczywistym zasadnym jest przyjęcie pewnych konwencji. Każde działanie agenta powinno mieć określone warunki PRE i POST. Prowadzi to do określenia trzech "domyślnych stanów" agenta: 
+\label{subsec:3stany}
+Programując scenariusze agentów pracujących w czasie rzeczywistym zasadnym jest przyjęcie pewnych konwencji. Każde działanie powinno mieć określone warunki początkowe. Prowadzi to do określenia trzech ,,domyślnych stanów'' agenta:~\cite{ORKIfear, OWEN}
 \begin{itemize}
 \setlength\itemsep{-0.4em}
-    \item Gdy pożądany cel nie może być określony (warunki PRE nie są spełnione i nie można nic z tym zrobić), agent powinien czekać (stan bezczynny, ang. \textit{idle}). 
-    \item Gdy warunki PRE mogą zostać osiągnięte agent może dążyć do ich wypełnienia. Najczęściej agent musi znaleźć się w określonym miejscu, więc często ten stan manifestuje się jako przemieszczenie się do wybranego punktu (ang. \textit{go to}). 
-    \item Gdy wszystkie warunki PRE są spełnione agent może przejść do realizacji zadania (ang. \textit{perform action}). 
+    \item Gdy pożądany cel nie może być określony (warunki początkowe nie są spełnione i nie można nic z tym zrobić), agent powinien czekać (stan bezczynny, ang. \textit{idle}). 
+    \item Gdy warunki początkowe mogą zostać osiągnięte agent może dążyć do ich wypełnienia. Najczęściej agent musi znaleźć się w określonym miejscu, więc często ten stan manifestuje się jako przemieszczenie się do wybranego punktu (ang. \textit{go to}). 
+    \item Gdy wszystkie warunki początkowe są spełnione agent może przejść do realizacji zadania (ang. \textit{perform action}). 
 \end{itemize}
 
-Zaproponowana konwencja nie jest jedną, jednak wykorzystywaną w praktyce. Taki podział tworzy kilka możliwych podejść. 
+Zaproponowana konwencja nie jest jedyną możliwą, jest jednak wykorzystywana w praktyce przez autorów środowiska GOAP do zarządzania animacjami bohatera niezależnego. Wymienione stany mogą tworzyć automat skończony, będący w pewnej relacji do automatu opisującego scenariusz.
 
-Wymienione stany mogą stanowić bazę definiowanych działań, czyli każdy ze stanów wchodzi w skład interfejsu funkcji wywoływanej przy przejściach nadrzędnego . Mogą być nadrzędną maszyną stanów, 
+Automat ze scenariuszem może stanowić podstawowy element systemu sterowania agenta. Każdy z trzech stanów wchodzi w skład funkcji wywoływanej przy przejściach nadrzędnego automatu ze scenariuszem. Wtedy wszystkie wierzchołki posiadają wewnątrz podautomat z trzema wymienionymi stanami. 
+
+Hierarchia może być odwrotna - nadrzędny automat, zawiera tylko trzy wymienione stany, podczas gdy zarządzający scenariuszem znajduje się wewnątrz wierzchołka \textit{perform action}.
+
+Oba automaty mogą też działać niezależnie wymieniając tylko między sobą informacje. Aktualny stan automatu zarządzającego scenariuszem jest wtedy przekazywany jako argument do funkcji wywoływanej wewnątrz stanu \textit{perform action}.
 
 \subsection{Problemy}
 
-Tworzenie scenariuszy z użyciem automatów skończonych jest łatwe i niezawodne, w związku z czym zyskało dużą popularność przy sterowaniu agentami. Ma jednak swoje wady, ponieważ każdy możliwy scenariusz musi być przewidziany przez programistę. W grach komputerowych, ale szczególnie w robotyce społecznej przeoczenie przez programistę niektórych scenariuszy może prowadzić do nieoczekiwanego, nieintuicyjnego zachowania agenta. Liczba istniejących potencjalnie przejść między stanami jest kwadratem liczby stanów. Dodatkowo funkcje aktywowane przy uruchamianiu stanu mogą zawierać wewnętrzne zmienne, lub pobierać argumenty z zewnętrznego źródła. 
+Tworzenie scenariuszy z użyciem automatów skończonych jest łatwe i niezawodne, w związku z czym zyskało dużą popularność przy sterowaniu agentami. Ma jednak swoje wady, ponieważ każdy możliwy scenariusz musi być przewidziany przez programistę. W grach komputerowych jak i w robotyce społecznej przeoczenie przez programistę niektórych scenariuszy może prowadzić do nieoczekiwanego, nieintuicyjnego zachowania agenta. Liczba istniejących potencjalnie przejść między stanami jest kwadratem liczby stanów. Dodatkowo funkcje aktywowane przy uruchamianiu stanu mogą zawierać wewnętrzne zmienne, lub pobierać argumenty z zewnątrz. 
 
-Inteligentny robot społeczny powinien być w stanie samodzielnie planować swoje akcje a nie polegać wyłącznie na gotowych scenariuszach, dlatego zasadne wydaje się zautomatyzowanie generowania automatów skończonych.
-
+Inteligentny robot społeczny powinien być w stanie samodzielnie planować swoje akcje a nie polegać wyłącznie na gotowych scenariuszach, dlatego zasadne jest zautomatyzowanie generowania planów.
 
 \section{Charakterystyka środowiska GOAP}
+\label{sec:GOAP}
+GOAP (skrót od \textit{goal oriented action planning}, ang. \textit{planowanie zadań zorientowane na cel}) to system planowania akcji, zaproponowany przez Jeffa Orkina w 2003 roku na potrzeby gry komputerowej F.E.A.R., którego podstawowe idee przedstawiono w pracy~\cite{ORKI}. 
 
-% GOAP Goal oriented action planning, (planowanie zadań zorientowane na cel) - 
+F.E.A.R. to strzelanka pierwszoosobowa czasu rzeczywistego wydana przez studio Monolith Productions. Postać gracza zmaga się w niej z przeciwnikami sterowanymi przez sztuczną inteligencję. Działania bohaterów niezależnych muszą być skoordynowane i nietrywialne, aby stanowiły wyzwanie dla gracza. Zachowanie przeciwników powinno być niedeterministyczne, ale skoncentrowane na realizację celu. Z tego powodu wykorzystywano wcześniej system STRIPS~\cite{ORKIfear}, oparty o automaty skończone, jednak rozwiązanie to było pracochłonne. 
 
-GOAP to system planowania akcji, zaproponowany przez Jeffa Orkina w 2003 roku na potrzeby gry komputerowej F.E.A.R., którego podstawowe idee przedstawiono w \cite{ORKI}. 
+W tym celu opracowano architekturę GOAP, która pozwala na automatyczne generowanie scenariuszy działania. Plany tworzone są w czasie rzeczywistym, pozwalając agentom umieszczonym w grze reagować na spontaniczne zmiany środowiska.
 
 \subsection{Elementy środowiska GOAP}
+\label{subsec:GOAP_elem}
 
+Narzędzia udostępniane przez środowisko GOAP  można podzielić na dwie kategorie. Pierwszą z nich są klasy pozwalające na opisanie stanu świata oraz kompetencji i celów agenta. Na drugą kategorię składają się narzędzia wymieniające informacje pomiędzy światem a agentem, tworzące plan i zarządzające jego realizacją. 
 
-% GOAP przechowuje informacje o stanie świata, bądącą kolekcją 
+Praca programisty sprowadza się do opisania problemów stawianych agentowi z użyciem narzędzi pierwszej kategorii. Zostały one opisane w~\cite{ORKIarch, ORKIws, OWEN,  KOLB}.
 
-% specjalnie do kontrolowania w czasie rzeczywistym autonomicznego zachowania postaci w grach. 
+\begin{description}
+\item[Stan atomowy] {(ang. \textit{condition} lub \textit{state}) to klasa pozwalająca na opisanie faktów. Stanowi atomowemu nie przypisuje się jawnie wartości, zapewnia on jedynie identyfikator (nazwę), który jest wykorzystywany w klasach opisywanych poniżej.}
+\item[Stan świata] {(ang. \textit{world state}) to kolekcja stanów atomowych z przypisanymi im wartościami. Na podstawie jednego stanu świata można tworzyć inne, poprzez zmianę wartości, dodanie lub odjęcie kolejnego stanu atomowego. Klasa udostępnia metody pozwalające na sprawdzenie, czy są spełnione pewne warunki.}
+\item[Warunek] {(ang. \textit{precondition}) to para stanu atomowego z przypisaną mu wartością. Warunki wykorzystywane są przy określeniu akcji agenta (wymagań, które muszą być spełnione przed jej podjęciem) oraz jego celów. Możliwe jest zdefiniowanie uogólnionych warunków (ang. \textit{procedural preconditions}), których wartość sprawdzana jest przy użyciu funkcji.}
+\item[Efekt] {(ang. \textit{effect}) to (podobnie jak warunek) para stanu i wartości. Efekt opisuje zmiany, jakie powinny zostać wprowadzone do stanu świata po wykonaniu akcji przez agenta. Ponownie możliwe jest utworzenie uogólnionych efektów (ang. \textit{variable effects}), którym nie jest przypisana pojedyncza wartość, ale generowana dynamicznie z użyciem pewnej funkcji.}
+\item[Akcja] {(ang. \textit{action}) to elementarne działanie możliwe do wykonania przez agenta. Akcje nie są jawnie łączone przez programistę w scenariusze, powinny być możliwie najprostsze. Każdej akcji przypisywane są warunki oraz efekty. Aby ustalić czy akcja może zostać wykonana, należy sprawdzić czy spełnione są wszystkie warunki w określonym stanie świata. 
+
+Oprócz wskazania warunków należy również zaimplementować działanie agenta, czyli określić komendy wydane efektorom. Akcji przypisany jest pewien koszt, który może być statyczny lub generowany na podstawie informacji o stanie świata. }
+\item[Cel] {(ang. \textit{goal}) to kolekcja warunków, które docelowo mają zostać spełnione. Jest to kluczowy element systemu planowania, każdy plan zorientowany jest na realizację celu. Cel posiada przypisaną użyteczność, czyli informację o tym, jak bardzo jest pożądany.}
+\end{description}
+
+Powyższe elementy pozwalają na zdefiniowanie agenta. Posiada on wiedzę o świecie przechowaną we własnej instancji stanu świata, listę dostępnych akcji oraz cele do zrealizowania. Jeśli agentów jest więcej, mogą oni różnić się od siebie dostępnymi akcjami i celami, co pozwala na łatwe przydzielanie im różnorodnych ról. 
+
+Po zdefiniowaniu agentów możliwe jest użycie narzędzi drugiej kategorii, automatyzujących tworzenie i wykonywanie planu. Nie są one jawnie opisane w pracach Orkina, prawdopodobnie ze względu na specyfikę gier. Zadania te realizowane są przez silnik gry, programy do debugowania lub inne narzędzia przeznaczone dla twórcy gry, które pojawią się niezależnie od GOAP. 
+
+Z tego powodu zestaw narzędzi może różnić się między różnymi implementacjami. Jedynym niezbędnym elementem jest planer. Poniżej przedstawiono podział zaproponowany w implementacji RGOAP:~\cite{KOLB, KOLBrgoap}
+
+\begin{description}
+\item[Planer] {(ang. \textit{planner}) to narzędzie mające przygotować sekwencję akcji. Planowanie zorientowane jest na cel, dlatego konieczne jest przekazanie planerowi konkretnego celu oraz aktualnego stanu świata. Planer określa warunki, które nie są spełnione, czyli tworzy specyfikację docelowego stanu świata, wypełniającego cel. Problem planowania sprowadza się do znalezienia ścieżki (ang. \textit{pathfinding}). Jest on rozwiązywany przez algorytm $A^\star$.~\cite{ORKI, ORKIarch}
+
+Tworzony jest graf, którego wierzchołkami są stany świata, a krawędziami dostępne akcje. Graf ten jest identyczny jak w przypadku agentów z parametrem wewnętrznym opisanych w rozdziale \ref{sec:agentZPW}. 
+
+Planer wykorzystuje dostępny zbiór akcji. Akcje układane są ,,od końca'' – znając docelowy stan świata określane są stany świata poprzedzające wykonanie akcji na podstawie jej efektów i warunków. Akcje mają przypisany koszt, dlatego jeśli zostanie znalezione kilka sekwencji, zostanie wybrana ta najtańsza. 
+}
+\item[Wykonawca] {(ang. \textit{executor}) to klasa zarządzająca realizacją planu. W grach komputerowych rolę tę pełni silnik gry, jednak w implementacji robotycznej konieczne było wydzielenie go jako osobnego narzędzia. Klasa nie została udokumentowana, ani opisana w pracy~\cite{KOLB}, dlatego jej szczegółowe funkcje należy określić na podstawie kodu umieszczonego w repozytorium~\cite{KOLBrgoap}. 
+}
+\item[Introspektor] {(ang. \textit{introspector}) analizuje wewnętrzny stan środowiska. RGOAP wykorzystuje bibliotekę SMACH~\cite{SMACH}, przeznaczoną do tworzenia automatów skończonych w środowisku ROS, udostępniając przy tym narzędzie \textit{smach\_viever}. Introspektor komunikuje się z nim, pozwalając na analizę wygenerowanych planów i analizę ich działania w czasie rzeczywistym.}
+\item[Nadzorca] {(ang. \textit{runner}) to nadrzędna klasa zarządzająca pracą trzech wymienionych powyżej. Została dodana dla zwiększenia czytelności kodu i automatyzacji niektórych zadań. To w tej klasie umieszczona jest główna pętla systemu, w której cyklicznie realizowane jest działanie pozostałych klas.}
+\end{description}
+
+Powyższa lista narzędzi w robotycznej implementacji GOAP jest wystarczająca, ale może zostać rozbudowana. Dla przykładu: aktualizacją stanu świata w RGOAP zajmuje się środowisko ROS, dlatego próbując wykorzystać RGOAP bez ROSa konieczne byłoby dodanie kolejnego narzędzia zarządzającego pobieraniem danych z sensorów robota i przekazywaniem informacji do środowiska.
 
 \subsection{GOAP a sterowanie agentami CERT}
+\label{subsec:GOAP_CERT}
+Podczas projektowania GOAP nie uwzględniono klasyfikacji CERT, dlatego elementów środowiska nie można jednoznacznie przypisać poszczególnym podsystemom opisanym w rozdziale~\ref{subsec:CERT}. Poniżej rozwinięto zagadnienia, które w nieco innym aspekcie zostały omówione w rozdziale~\ref{subsec:g_CERT}.
 
-\subsection{Zastosowania w grach komputerowych}
+GOAP zasadniczo jest elementem podsystemu sterowania, ponieważ jego mechanizmy mają na celu przygotowanie i realizację wysokopoziomowego planu. Nie pozwala to na rozwiązanie wszystkich zadań, więc w skład podsystemu sterowania muszą wchodzić inne komponenty niższego poziomu.
 
-\subsection{Możliwość zastosowania w robotyce}
+W idealnej sytuacji każdy wirtualny efektor agenta powinien zostać przypisany osobnej akcji. W tym celu należy określić warunki aktywacji i efekty, jakie efektor realizuje. Może być to problematyczne w niektórych przypadkach, ponieważ efekty nie muszą mieć postaci prostych stanów atomowych, typowo przechowujących: krótki ciąg znaków, liczbę lub warunek logiczny. Z tego powodu przy definiowaniu zbioru akcji agenta obsługiwanych przez GOAP rozsądną strategią będzie wybór tylko interesujących kompetencji robota. 
 
-% GOAP dobrze sprawdza się w systemach wieloagentowych. 
-% Pracuje w czasie rzeczywistym, dostosowuje się do zmiany środowiska, jednak bez dodatkowych elementów nie estymuje przyszłości i nie uwzględnia spontanicznych zmian w otaczającym świecie.
-% 
+Receptory agenta nie mają możliwości na bezpośrednie oddziaływanie z GOAPem. Konieczne jest skorzystanie z innej warstwy architektury, która będzie pobierała dane z sensorów, aktywowała wybrane receptory wirtualne i aktualizowała stan świata. Część receptorów wirtualnych można umieścić w dedykowanych im akcjach, jednak określenie efektów takiej akcji bez znajomości informacji dostarczonych przez receptor może okazać się niemożliwe.
+
+W grach komputerowych bardzo wiele kompetencji bohatera niezależnego jest realizowane przez zewnętrzny silnik gry. Dla przykładu: NPC chcący spojrzeć na postać gracza może pobrać dane o jego położeniu bez żadnego kosztu, podczas gdy robot próbując spojrzeć na człowieka musiałby uruchomić algorytmy rozpoznawania twarzy, które mogą zawieźć lub być kosztowne obliczeniowo. 
+
+Brak zewnętrznego silnika, w przypadku fizycznych robotów, prowadzi do wniosku, że zasadnym jest utworzenie warstwowej architektury: niższe warstwy realizują zadania niezależnie od systemu planowania, analizując otoczenie i przekazując informacje do warstwy wyższej, w której umieszczone jest środowisko GOAP. Rolę niższej warstwy może stanowić system operacyjny robota lub np. ROS. Zadaniem podsystemu komunikacji będzie zapewnienie przepływu informacji.
+
+Niższa warstwa architektury może być związana z automatem skończonym opisanym w rozdziale \ref{subsec:3stany}, którego rola w grach komputerowych była ograniczana tylko do generowania animacji bohatera niezależnego. 
+
+%  Jego warunki powinny być zdefiniowane jako preconditions, a wykonane efekty jako effect. Robot podejmując akcję może założyć, że już się ona powiodła, nawet jeśli nie uzyska odpowiedniej informacji ze środowiska. 
+
+% C - sterowania, GOAP jest właściwie jego elementem. Inne składniki podsystemu sterowania mogą wpływać na worldstate, więc reprezentuje on wiedzę/przekonania agenta. Ta może być modyfikowana natychmiast, ale  też z pewnym opóźnieniem, symulując w ograniczonym stopniu system emocjonalny. 
+
+% Ewentualnie przewidywania robota powinny być zapisane w jego WorldState, 
+% GOAP nie zapamiętuje poprzednich stanów świata, agent aby posiadać pamięć musi realizować to samodzielnie.
+
+% R - dane z receptorów nie muszą, ale mogą wpływać bezpośrednio na worldstate, przez wykonywanie algorytmów (rozpoznawanie twarzy) i komunikację z GOAPem
+
+% T - GOAP jest wykorzystywany w środowisku wieloagentowym, więc działania muszą być skoordynowane. Jeśli stan świata jest wspólny dla wszystkich agentów, musi być dostarczany z zewnątrz, przez podsystem komunikacji. Jego rolę może pełnić ROS lub silnik gry. Agenci mogą wykorzystywać go do zmiany swoich stanów, w przypadku strzelanek np. przejmując dowództwo w przypadku śmierci dotychczasowego agenta pełniącego tę rolę.
 
 \subsection{GOAP a model BDI}
+\label{subsec:GOAP_BDI}
+Środowisko GOAP może posłużyć do implementacji agenta BDI, opisywanego w rozdziale~\ref{sec:BDI}. W przeciwieństwie do klasyfikacji CERT, architektura GOAP była projektowana z uwzględnieniem niektórych aspektów modelu BDI.
+
+\subsubsection{Przekonania}
+GOAP pozwala na przechowywanie wiedzy lub przekonań w postaci stanu świata (ang. \textit{world state}). Jak wspomniano w rozdziale \ref{subsec:BDIenv}, agent pracuje w dynamicznym środowisku i powinien przewidywać spontaniczne zmiany środowiska. Środowisko nie dostarcza jednak żadnego systemu wnioskowania (poza planerem, który jest jednak skoncentrowany na intencjach, a nie przekonaniach). Z tego powodu należy zaproponować rozszerzenie elementów wchodzących w skład GOAP, lub zaimplementować system wnioskowania jako osobne narzędzie. Bez rozszerzenia planowanie będzie realizowane jedynie na poziomie agenta z parametrem wewnętrznym.
+
+Przekonania nie są przechowywane w środowisku w jednolity sposób. Dla przykładu GOAP dostarcza mechanizmy pozwalające na sprawdzenie czy dana akcja może zostać wykonana, ale w oderwaniu od aktualnego stanu świata (ang. \textit{freeform condition}). Temat ten został poruszony również w rozdziale~\ref{subsec:i_goap}, opisującym próbę zastosowania środowiska RGOAP do rozwiązania przez robota NAO prostego ćwiczenia.
+
+Z wymienionych powyżej powodów zasadnym wydaje się wydzielenie przekonań agenta do nadrzędnego systemu, który do środowiska GOAP będzie przekazywał jedynie informacje istotne z punktu widzenia tworzenia sekwencji akcji.
+
+\subsubsection{Pragnienia}
+Pragnienia agenta BDI wyrażają się przez stawianie celów. W literaturze można czasem spotkać tłumaczenie angielskiego słowa \textit{desire} na polskie \textit{cel}. GOAP koncentrację na celach ma wpisane w swoją filozofię, dlatego jest dobrym narzędziem do zarządzania pragnieniami agenta BDI. Samo środowisko GOAP z konkretnym momencie operuje na statycznej liście celów, ale nic nie stoi na przeszkodzie modyfikowaniu listy nawet w trakcie pracy systemu. 
+
+GOAP pozwala na przechowywanie wykluczających się celów, priorytetyzując je na podstawie parametru użyteczności przypisanego do każdego celu. Można zaproponować inne sposoby szeregowania istotności celów, zarówno wewnątrz GOAP, jak i tworząc nadrzędny system. Tak jak w przypadku przekonań można wydzielić zewnętrzne narzędzie. Operowałoby ono na uogólnionych pragnieniach, przekazując do środowiska jedynie skonkretyzowane cele.
+
+\subsubsection{Intencje}
+Intencje w modelu BDI urzeczywistniają się w postaci planów. Planer środowiska GOAP potrafi skutecznie wyszukiwać sekwencje akcji pozwalające osiągać sformułowane cele. Jeśli w trakcie realizacji planu stan świata zmieni się, GOAP potrafi anulować dotychczasowy i przygotować lepszy plan. 
+
+Utożsamiając intencje z planami, należy zauważyć, że podstawowym składnikiem planu są pojedyncze akcje. Im większy jest zbiór zdefiniowanych akcji agenta tym bardziej skomplikowane mogą być jego intencje – przygotowany plan może w bardziej inteligentny sposób realizować postawione cele. Należy mieć jednak na uwadze, że mechanizmy sprawdzające warunki korzystania z akcji (wspomniane wcześniej \textit{freeform condition}) powodują, że akcje powiązane również z innymi elementami modelu BDI.
+
+W przypadku intencji nie jest konieczne tworzenie dodatkowych narzędzi. 
+
+\section{Uwagi}
+\label{sec:uwagi}
+W rozdziale przedstawiono podstawowe koncepcje środowiska GOAP i dokonano analizy tych koncepcji w licznych aspektach. W kontekście celu pracy, sformułowanego w rozdziale~\ref{sec:cel}, oraz kolejnego rozdzialu~\ref{chap:implementacja} warto zwrócić uwagę na fakt, że GOAP jest oprogramowaniem przygotowanym do bezpośredniej implementacji agenta BDI, wykorzystującym w swoich działaniach automaty skończone. Wskazano również na silne związki podjętej w pracy tematyki z grami komputerowymi.
+% BDI w podstawowej wersji GOAP nie jest możliwy do zaimplementowania. GOAP nie uwzględnia zmian stanu świata niezależnych od działania agenta, może reagować tylko na istniejące zmiany. Agent z parametrem wewnętrznym – przewiduje konsewencje podjętych akcji i tworzy plan. 
+
+% Konieczne jest zaproponowanie rozszerzenia, być może podobnego do action, które pozwoli na predykowanie spontaniczych zmian w świecie. 
+
+% Na przykład: Agent może chcieć, aby było czysto. W podstawowej wersji GOAP "czystość" powinna znajdować się na liście celów. Jeśli wszystkie cele o wyższym priorytecie są zrealizowane, to robot przejdzie do realizacji czystość, czyli będzie sprzątać. Załóżmy jednak, że raz na jakiś czas pojawia się sprzątaczka, która wykona to zadanie bezbłędnie. Robot powinien być w stanie przewidzieć, że bałagan zostanie posprzątany przez kogoś innego. 
+
+%\subsection{GOAP jako system wieloagentowy}
+%GOAP powstał na potrzeby sterowania agentami w grach komputerowych. Konieczne jest tam koordynowanie akcji wielu postaci, więc z założenia wykorzystywany jest w środowisku wieloagentowym. Umożliwił tworzenie inteligentnych planów i koordynowanie działań bohaterów niezależnych. Poprzez nadanie postaciom różnych zbiorów akcji i odrębnych celów możliwe jest nadanie im charakteru. 
+
+
+
+% Jeśli w programie jest jeden wspólny Worldstate, mówimy o wiedzy, wiedzy, jeśli o osobny worldstate dla każdego agenta, możemy mówić o przekonaniach.
+
+% W grach powyższy problem jest rozwiązywany poprzez tworzenie planów na poziomie wielu robotów. 
+
+% Wieloagentowość GOAP podsuwa pomysł, aby w umyśle robota zdefiniować kilka "ośrodków decyzyjnych" o niezależnych celach (konflikt serce-rozum). Być może pozwoli to na tworzenie bardziej autentycznego modelu umysłu.
+
+
+
+%\subsection{Ogólny wniosek na temat GOAP w robotyce}
+% Jest dobry, jeśli spojrzeć na niego wysokopoziomowo z punktu widzenia BDI. Nie jest idealny, ale da się dostosować.
+% GOAP jest jednak słaby niskopoziomowo, z punktu widzenia klasyfikacji CERT, bo wymaga od robotyka przygotowania pokaźnego interfejsu między niskimi a wysokimi wastwami sterowania, co czasem może być niemożliwe. 
+
+% Jest za wcześnie, żeby zbudować z niego kompletny obliczeniowy model umysłu, ale zaproponowane rozwiązania zdecydowanie mogą przybliżyć robotykę społeczną do tego celu.
+
+%\subsection{Zastosowania w grach komputerowych}
+
+%GOAP powstał na potrzeby sterowania agentami w strzelankach czasu rzeczywistego. Konieczne jest tam koordynowanie akcji wielu postaci, które powinny być w stanie zastawiać pułapki na gracza, okrążać go, kryć się za przeszkodami. 
+
+%Członkom drużyny przypisywane są różne kompetencje, co pozwala na tworzenie charakteru postaci. 
+%Medyk będzie posiadał inny zbiór akcji niż żołnierz, a strażnik inne cele, niż jednostka przeznaczona do ataku.
+
+%Agentami zarządza prosty automat skończony najczęściej postaci: goto, idle, perform action.~\cite{ORKIfear}
+
+%Środowisko zostało użyte w wielu uznanych produkcjach, 
+%F.E.A.R. (X360/PS3/PC) - Monolith Productions/VU Games, 2005
+%S.T.A.L.K.E.R.: Shadow of Chernobyl (PC) - GSC Game World/THQ, 2007
+%Fallout 3 (X360/PS3/PC) - Bethesda Softworks, 2008
+
+%GOAP jest używany w grach strategicznych czasu rzeczywistego, takcih jak Empire: Total War. 
+
+%\subsection{Możliwość zastosowania w robotyce}
+
+
+%- sterowanie ruchem, manipulatory
+%- sterowanie rojem, można zastosować analogię do gier strategicznych czasu rzeczywistego
+%- tworzenie sztucznej inteligencji, jako element większego systemu
+

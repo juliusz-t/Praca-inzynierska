@@ -1,0 +1,25 @@
+\chapter{Podsumowanie}
+\label{chap:podsumowanie}
+%W pracy podjęto problem sformułowany w rozdziale~\ref{sec:cel} oceny możliwości implementacji interaktywnych zachowań robota NAO na gruncie architektury agenta BDI w środowisku programowym uzyskanym w wyniku integracji środowisk: RGOAP, ROS i naoqi. W rozdziałach~\ref{chap:prob_ster_rob_spol} i~\ref{chap:goap} zebrano podstawowe koncepcje dotyczące agentów BDI, agentowego podejścia do robotów społecznych, środowiska programowego NAO i GOAP. Zestawienie zebranych faktów pozwala stwierdzić, że wyżej wymienione koncepcje są spójne a zaproponowany w pracy pomysł implementacji scenariuszy zachowań NAO z wykorzystaniem środowiska GOAP ma sens.
+
+W przedstawionej pracy w rozdziale~\ref{sec:cel} sformułowano problem oceny możliwości implementacji interaktywnych zachowań robota NAO na gruncie architektury agenta BDI, w środowisku programowym uzyskanym w wyniku integracji środowisk: RGOAP, ROS i NAOqi. 
+Aby móc udzielić odpowiedzi na problem w rozdziale~\ref{chap:prob_ster_rob_spol} zebrano podstawowe koncepcje dotyczące agentów BDI, agentowego podejścia do robotów społecznych i środowiska programowego NAO.
+
+W rozdziale~\ref{chap:goap} opisano środowisko GOAP i dokonano jego krytycznej oceny porównując specyfikę sterowania agentami w grach komputerowych ze sterowaniem agentem upostaciowionym. Transfer technologii GOAP do robotyki wymaga skomponowania zestawu narzędzi, których rolę w grach komputerowych pełni silnik gry, co opisano z perspektywy klasyfikacji CERT w rozdziałach~\ref{subsec:g_CERT} oraz~\ref{subsec:GOAP_CERT}. 
+
+Jednocześnie w rozdziale~\ref{subsec:GOAP_BDI} wskazano, że GOAP stanowi dobrą bazę dla implementacji wyższych warstw systemu. Zestawienie zebranych faktów pozwala stwierdzić, że wyżej wymienione koncepcje są spójne a zaproponowany w pracy pomysł implementacji scenariuszy zachowań NAO z wykorzystaniem środowiska GOAP ma sens.
+
+% W rozdziale \ref{chap:implementacja} dokonano praktycznej weryfikacji rozważanej koncepcji. Uzyskano wynik negatywny. Okazało się, że w chwili obecnej GOAP jest na zbyt wczesnym etapie rozwoju. Aby go stosować należy go równocześnie rozwijać w różnych miejscach. Przykład użycia GOAP w prostym scenariuszu, przygotowany zgodnie z dokumentacją, który nie zadziałał, jest omówiony w rozdziale~\ref{subsec:i_goap}. 
+
+W rozdziale \ref{chap:implementacja} dokonano praktycznej weryfikacji rozważanej koncepcji. Uzyskano wynik negatywny. Okazało się, że w chwili obecnej robotyczna implementacja GOAP jest na zbyt wczesnym etapie rozwoju, a inne nie są zintegrowane ze środowiskiem ROS. Istnieje działająca implementacja sterowania manipulatorem z użyciem SMACH oraz RGOAP, jednak wyniku nie udało się powtórzyć. Aby móc stosować RGOAP należy uzupełnić jego dokumentację i dodać niezaimplementowane funkcjonalności opisane w pracy~\cite{KOLB}. Przykład użycia RGOAP w prostym scenariuszu, przygotowanym zgodnie z dokumentacją, który nie zadziałał, jest omówiony w rozdziale~\ref{subsec:i_goap}. 
+
+% Wynikiem konstruktywnym pracy, który jest efektem analizy środowiska RGOAP, to pozytywna weryfikacja środowiska programowego złożonego ze środowisk: naoqi, ROS i SMACH. SMACH jest wykorzystywany przez GOAP do implementacji planów przez siebie wytworzonych, niemniej może być wykorzystywany do sterowania NAO niezależnie od RGOAP. SMACH nie umożliwia implementacji agentów BDI a tylko automaty skończone. Niemniej, z perspektywy sterowania robotami NAO rozszerza możliwości w zakresie implementacji scenariuszy zachowań tych robotów. Ten wynik pracy jest potencjalnie użyteczny w procesie dydaktycznym i interesujący z perspektywy innych zastosowań NAO.
+
+Konstruktywnym wynikiem pracy, uzyskanym w trakcie analizy RGOAP, 
+jest pozytywna weryfikacja środowiska programowego złożonego z narzędzi: NAOqi, ROS i SMACH. SMACH jest wykorzystywany przez RGOAP przy konstruowaniu planów wygenerowanych przez planer, niemniej może być wykorzystywany do sterowania NAO niezależnie od RGOAP. SMACH nie umożliwia implementacji agentów BDI a tylko automaty skończone. Niemniej, z perspektywy sterowania robotami NAO rozszerza możliwości w zakresie implementacji scenariuszy zachowań. Scenariusze te mogą później zostać łatwo wykorzystane przez RGOAP w postaci akcji agenta. Skrypty pozwalające na sterowanie NAO z użyciem SMACH mogą być potencjalnie użyteczne w procesie dydaktycznym i są interesujące z perspektywy innych zastosowań robota.
+
+% Integracja robota z ROSem jest nie tylko korzystna, ale wręcz niezbędna. Musi istnieć narzędzie, które przejmie kompetencje silnika gry.
+
+% RGOAP stanowi dobrą bazę dla modelu BDI. Powinien jednak zostać zaimplementowany do końca i udokumentowany.
+
+% Udało się sterować NAO, udało się opisać GOAP w kontekście wysokich warstw abstrakcji, ale nie udało sie tego połączyć.

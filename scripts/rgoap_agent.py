@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-import rospy
 from robot import Robot
-from rgoap import Memory, Condition, Precondition, Effect, Action, Goal
-from rgoap_ros import ROSTopicCondition, ROSTopicAction
-from std_msgs.msg import String
-
-mem = Memory()
 nao_robot = Robot()
+
+from rgoap import Condition, Precondition, Effect, Action, Goal
+from rgoap_ros import ROSTopicCondition, ROSTopicAction
+import rospy
+from std_msgs.msg import String
 
 class ActionStandUp(ROSTopicAction):
   def __init__(self, queue_size=1):
@@ -58,17 +57,17 @@ class GoalReady(Goal):
       Precondition(Condition.get('robot.squat'), 'ready')], 
       10)
 
-def get_all_conditions(memory = mem):
+def get_all_conditions(memory):
   return [
       ROSTopicCondition("robot.pose", "/nao_rgoap/pose", String, field='data'),
       ROSTopicCondition("robot.squat", "/nao_rgoap/squat", String, field='data')
     ]
 
-def get_all_actions(memory = mem):
+def get_all_actions(memory):
   return [
       ActionStandUp(), 
       ActionSquat(), 
       ActionSit()]
 
-def get_all_goals(memory = mem):
+def get_all_goals():
   return [GoalReady()]

@@ -6,11 +6,44 @@
 % \section{Zadania wyższych warstw systemu sterowania}
 % - Miejsce GOAP w modelu BDI. Wykorzystanie RGOAP do sterowania robotem społecznym. 
 
-\section{Cel pracy}
+\section{Roboty społeczne i problem ich sterowania}
+\label{sec:rs}
+Robotyka społeczna jako odrębny interdyscyplinarny kierunek badawczy, obejmujący robotykę, psychologię i sztuczną inteligencję powstała w połowie lat 90-tych ubiegłego wieku i rozwinęła się na przełomie pierwszej i drugiej dekady XXI-wieku~\cite{FONG}. Dalekosiężnym celem działań w tym obszarze jest wytworzenie robota, który funkcjonowałby jako jednostka społeczna w środowisku ludzi. W szczególności, wspierałby ludzi nie tylko w~zakresie wykonywania zadań fizycznych ale również dawałby wsparcie w zakresie psychologicznym, jako ich towarzysz czy asystent. Obecnie działania w zakresie robotyki społecznej wnoszą wkład umożliwiający lepsze poznanie i zrozumienie procesów zachodzących w interakcjach robot-człowiek oraz wkład w rozwój technologii pozwalającej na~współdziałanie robota i człowieka (mowa o robotach asystujących, medycznych, zabawkach interaktywnych, cobotach, etc.)
 
-\begin{quote}
-Celem pracy było rozpoznanie i ocenienie możliwości i zasadności zastosowania środowiska GOAP do implementacji poznawczych modeli umysłu w wyższych warstwach architektury układu sterowania robota NAO. 
-\end{quote}
+Robot społeczny w samej swojej koncepcji jest bardzo złożonym urządzeniem~\cite{AREN}. Typowa implementacja koncepcji robota społecznego jest (i zapewne będzie) złożeniem platformy mobilnej i manipulatorów -- do celów transportowo-manipulacyjnych -- oraz dodatkowych komponentów sensoryczno-wykonawczych, przeznaczonych do komunikacji i generalnie do interakcji z człowiekiem. W konsekwencji układ sterowania takiego robota będzie miał bardzo złożoną architekturę.
+
+Architektury składowych robota społecznego jak manipulator czy platforma mobilna już są złożone, co można stwierdzić uczęszczając na kursy z podstaw robotyki czy analizując podręczniki robotyki. Są to architektury hierarchiczne. Komponenty niższych warstw realizują zadania regulacji i śledzenia lub planowania trajektorii. Podstawą teoretyczną tych komponentów jest klasyczna teoria sterowania i związane z nią metody matematyczne. Wyższe warstwy mają charakter sterowników systemów zdarzeniowych (czyli takich, które są napędzanie niekoniecznie czasem ale innymi zdarzeniami, mogącymi występować asynchronicznie). Umożliwiają one realizację takich zadań jak zarządzanie całym systemem (przechodzenie pomiędzy stanami: uruchomienie, aktywny, błąd, zamknięcie), montaż konkretnego elementu na produkcji, transport elementów pomiędzy gniazdami produkcyjnymi w niepełni znanym środowisku.
+
+Na chwilę obecną inżynierowie najchętniej wykorzystują do implementacji algorytmów zdarzeniowych koncepcję automatu skończonego~\cite{FOUK}. Praktyka pokazuje jednak, że takie podejście jest dobre w przypadku, w którym liczba wszystkich możliwych stanów funkcjonowania systemu nie jest zbyt duża. Taka sytuacja nie zachodzi w przypadku robota społecznego. Generalnie oczekuje się, że procesy zachodzące w układzie sterowania robota społecznego będą podobne do tych, które zachodzą w człowieku, co implikuje wysoką złożoność architektury sterownika robota. Punktem odniesienia są rozmaite modele rozwijane przez psychologię poznawczą i metody sztucznej inteligencji (nie tylko na potrzeby robotyki ale również dla gier komputerowych).
+
+W kontekście wirtualnych charakterów w grach komputerowych jak również robotów społecznych zostały rozwinięte rozmaite architektury, w szczególności BDI~\cite{NORL}, w~których ważnym komponentem jest planer. Planer, w oparciu o bazę akcji, aktualny cel i~percepcję, składa z dostępnych akcji plan działania umożliwiający osiągnięcie celu. Kosztem zwiększenia złożoności obliczeniowej eliminujemy problem pewnej granicy w~ilości dopuszczalnych stanów (i powtarzalności zachowania się robota). W tym miejscu należy zaznaczyć, że takie podejście jest na wczesnym etapie rozwoju, co oznacza, że nie ma gotowych rozwiązań, które da się szybko zaadaptować do układu sterowania robota.
+
+\section{Cel pracy}
+\label{sec:cel}
+Tematyka niniejszej pracy leży w obszarze znanym w zagranicznej literaturze jako \textit{agent-based cognitive robot architecture}. Celem jest rozpoznanie i ocena możliwości zastosowania środowiska GOAP~\cite{ORKIfear} do implementacji poznawczych modeli umysłu w wyższych warstwach architektury układu sterowania robota NAO~\cite{NAOsite} oraz określenie zasadności takiego podejścia. 
+
+W tym celu należało zbudować środowisko składające się z robotycznej implementacji RGOAP~\cite{KOLB}, narzędzi pozwalających na sterowanie robotem NAO oraz systemu ROS, który wspiera integrację różnych komponentów programowych. Zgodnie z wiedzą autora nie było jeszcze próby integracji tych środowisk i oceny potencjału tak zintegrowanego oprogramowania.
+
+
+
+% zainstalować implementację GOAP w systemie operacyjnym Linux
+
+% Robotem, który ma pełnić rolę robota społecznego jest NAO. Środowisko programowe wspierające architekturę BDI to GOAP. Środowisko  robota to ROS. Zgodnie z wiedzą autora nie było jeszcze próby integracji tych środowisk i oceny potencjału tak zintegrowanego oprogramowania.
+
+%\begin{quote}
+% Bezpośrednim celem jest rozpoznanie i ocena możliwości zastosowania implementacji RGOAP do implementacji poznawczych modeli umysłu w wyższych warstwach architektury układu sterowania robota NAO oraz określenie zasadności takiego podejścia. 
+
+
+
+% przegląd literatury w zakresie zastosowania GOAP w robotyce
+% instalacja GOAP w systemie operacyjnym Linux, przegląd, analiza i ocena wybranych aplikacji dostępnych w Internecie
+% integracja programowa środowiska GOAP i robota NAO na bazie ROS, wstępne testy, ocena możliwości i przydatności
+% wytworzenie demonstratora technologii: opracowanie i implementacja z uzyciem GOAP prostego scenariusza działań dla NAO
+% redakcja pracy, ocena GOAP z perspektywy zastosowań robotycznych
+
+% W tym celu dokonano przeglądu literatury 
+% Dokonano testów istniejącej implementacji środowiska GOAP, instalując ją na systemie Linux. Po integracji z ROSem porównano wyniki sterowania symulowanym robotem NAO z użyciem automatu skończonego (biblioteką SMACH) oraz środowiskiem RGOAP~\cite{KOLB}.
+%\end{quote}
 
 
 
